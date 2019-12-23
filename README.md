@@ -1,4 +1,4 @@
-# The Molasses Engine
+# The Molasses Game Engine
 **By Tyler Royer**
 
 Yeah, it's called molasses because it's slow.  Because its Java.  But I couldn't find a good enough
