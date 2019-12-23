@@ -16,6 +16,7 @@ class TestScreen extends Screen {
 
     @Override
     public void render(Graphics2D g) {
+        Game.setBackgroundColor(Color.BLACK);
         g.setColor(Color.WHITE);
         g.drawString("Test", 200, 200);
     }

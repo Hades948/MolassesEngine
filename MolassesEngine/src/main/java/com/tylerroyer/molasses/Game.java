@@ -1,6 +1,7 @@
 package com.tylerroyer.molasses;
 
 import javax.swing.JOptionPane;
+import java.awt.Color;
 
 /**
  * Static classs to hold all important instances for the game.
@@ -28,6 +29,9 @@ public class Game {
     private static Looper looper;
     static Looper getLooper() {
         return looper;
+    }
+    public static void setBackgroundColor(Color color) {
+        looper.setBackground(color);
     }
 
     /**
