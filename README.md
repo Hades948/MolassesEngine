@@ -2,7 +2,7 @@
 **By Tyler Royer**
 
 Yeah, it's called molasses because it's slow.  Because its Java.  But I couldn't find a good enough
-2D game engine for Java so I made one.  It's very minimal at the moment and definately not stable.
+2D game engine for Java so I made one.  It's very minimal at the moment and definitely not stable.
 It's not really meant to be used at this stage by anyone but myself, but it you wanna use it, knock
 yourself out.  Just give me credit in your game somewhere.   
 
