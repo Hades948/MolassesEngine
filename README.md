@@ -7,7 +7,7 @@ It's not really meant to be used at this stage by anyone but myself, but it you 
 yourself out.  Just give me credit in your game somewhere.   
 
 In addition, if you do use the engine and would like to say thanks, I'll take donations
-(here)[https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=28W649DC5K322&currency_code=USD&source=url]!
+[here](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=28W649DC5K322&currency_code=USD&source=url)!
 I really do appreciate any donations, no matter how small :D   
 
-(Report a bug)[mailto:tyler.wayne.royer@gmail.com]
+[Report a bug](mailto:tyler.wayne.royer@gmail.com)
