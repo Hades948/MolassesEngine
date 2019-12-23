@@ -45,6 +45,10 @@ public class Button {
         gHighlighted.setFont(font);
         gHighlighted.setColor(textColor);
         gHighlighted.drawString(text, 10, height - 10);
+
+        pressed = Resources.scaleImage(pressed);
+        unpressed = Resources.scaleImage(unpressed);
+        highlighted = Resources.scaleImage(highlighted);
         
         this.x = x;
         this.y = y;
