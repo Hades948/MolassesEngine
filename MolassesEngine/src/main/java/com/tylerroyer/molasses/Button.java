@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Button {
     BufferedImage pressed, unpressed, highlighted;
@@ -59,15 +60,21 @@ public class Button {
     }
 
     private boolean isMouseHovering() {
-        Point mouseOffset = new Point(x - Game.getMouseHandler().getX() + pressed.getWidth(), y - Game.getMouseHandler().getY() + pressed.getHeight());
-        return pressed.getRaster().getBounds().contains(mouseOffset);
+        // TODO This works.  But omg is it ugly.  Try to clean it up.
+        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + pressed.getWidth() * (1 / Resources.scaleX));
+        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + pressed.getHeight() * (1 / Resources.scaleY));
+        Point mouseOffset = new Point(mouseOffsetX, mouseOffsetY);
+        int width = (int) (pressed.getRaster().getWidth() * (1 / Resources.scaleX));
+        int height = (int) (pressed.getRaster().getHeight() * (1 / Resources.scaleY));
+        Rectangle scaledBounds = new Rectangle(width, height);
+        return scaledBounds.contains(mouseOffset);
     }
 
     public boolean isDown() {
         return isMouseHovering() && Game.getMouseHandler().isDown();
     }
 
-    public void render(Graphics2D g) {
+    public void render(GameGraphics g) {
         if (isDown())
             g.drawImage(pressed, x, y, Game.getWindow());
         else if (isMouseHovering())

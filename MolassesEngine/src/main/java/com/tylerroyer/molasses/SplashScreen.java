@@ -43,7 +43,7 @@ class SplashScreen extends Screen {
     }
 
     @Override
-    public void render(Graphics2D g) {
+    public void render(GameGraphics g) {
         g.drawImage(splash, 0, 0, Game.getWindow());
     }
 }

@@ -20,7 +20,7 @@ class TestScreen extends Screen {
     public void update() {}
 
     @Override
-    public void render(Graphics2D g) {
+    public void render(GameGraphics g) {
         testButton.render(g);
     }
 }

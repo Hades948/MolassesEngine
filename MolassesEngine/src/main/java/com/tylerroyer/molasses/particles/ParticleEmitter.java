@@ -1,8 +1,7 @@
 package com.tylerroyer.molasses.particles;
 
-import com.tylerroyer.molasses.Game;
+import com.tylerroyer.molasses.*;
 
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 /**
@@ -40,7 +39,7 @@ public abstract class ParticleEmitter {
      * Renders all particles
      * @param g The graphics to render to.
      */
-    public void render(Graphics2D g) {
+    public void render(GameGraphics g) {
         for (Particle p : particles) {
             p.render(g);
         }

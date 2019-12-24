@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 public class Resources {
     private static HashMap<String, BufferedImage> graphical;
     private static final String GRAPHICAL_PATH = "/res/";
-    private static double scaleX, scaleY;
+    public static double scaleX, scaleY;
 
     public static void init(double devScreenWidth, double devScreenHeight) {
         Resources.graphical = new HashMap<>();

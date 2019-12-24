@@ -21,5 +21,5 @@ public abstract class Screen {
      * Renders the screen to the provided graphics.
      * @param g The graphics to render to.  Generally provided by the looper.
      */
-    public abstract void render(Graphics2D g);
+    public abstract void render(GameGraphics g);
 }

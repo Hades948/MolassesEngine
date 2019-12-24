@@ -1,8 +1,7 @@
 package com.tylerroyer.molasses.particles;
 
-import com.tylerroyer.molasses.Game;
+import com.tylerroyer.molasses.*;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -17,7 +16,7 @@ class ImageParticle extends Particle {
     }
 
     @Override
-    void render(Graphics2D g) {
+    void render(GameGraphics g) {
         g.drawImage(image, (int) x, (int) y, Game.getWindow());
     }
 }

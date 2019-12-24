@@ -63,7 +63,7 @@ public class Looper extends Canvas {
 
     @Override
     public void paint(Graphics graphics) {
-        Graphics2D g = (Graphics2D) graphics;
+        GameGraphics g = new GameGraphics((Graphics2D) graphics);
         Game.getCurrentScreen().render(g);
         repaint();
     }

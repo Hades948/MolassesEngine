@@ -1,7 +1,8 @@
 package com.tylerroyer.molasses.particles;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
+
+import com.tylerroyer.molasses.GameGraphics;
 
 /**
  * Implements Particle using just a colored rectangle.
@@ -16,7 +17,7 @@ public class ColorParticle extends Particle {
     }
 
     @Override
-    void render(Graphics2D g) {
+    void render(GameGraphics g) {
         g.setColor(color);
         g.fillRect((int) x, (int) y, SIZE, SIZE);
         g.setColor(Color.BLACK);

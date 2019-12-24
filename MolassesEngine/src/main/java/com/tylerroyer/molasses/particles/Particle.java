@@ -1,6 +1,6 @@
 package com.tylerroyer.molasses.particles;
 
-import java.awt.Graphics2D;
+import com.tylerroyer.molasses.GameGraphics;
 
 /**
  * Describes a abstract single particle.
@@ -29,5 +29,5 @@ abstract class Particle {
         return (int) y;
     }
 
-    abstract void render(Graphics2D g);
+    abstract void render(GameGraphics g);
 }
