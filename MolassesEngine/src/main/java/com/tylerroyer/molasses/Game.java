@@ -2,16 +2,12 @@ package com.tylerroyer.molasses;
 
 import javax.swing.JOptionPane;
 import java.awt.Color;
-import java.awt.Toolkit;
 
 /**
  * Static classs to hold all important instances for the game.
  */
 public class Game {
-    public static void init(double devScreenWidth, double devScreenHeight, int windowWidth, int windowHeight, String title, Screen firstScreen) {
-        double userScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        double userScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-
+    public static void init(int windowWidth, int windowHeight, String title, Screen firstScreen) {
         keyboardHandler = new KeyboardHandler();
         mouseHandler = new MouseHandler();
         looper = new Looper((int) (windowWidth * Resources.scaleX), (int) (windowHeight * Resources.scaleY));

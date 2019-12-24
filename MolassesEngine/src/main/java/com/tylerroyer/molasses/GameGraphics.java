@@ -38,4 +38,8 @@ public class GameGraphics {
         g.drawRect((int) (x * Resources.scaleX), (int) (y * Resources.scaleY), (int) (width * Resources.scaleX),
                 (int) (height * Resources.scaleY));
     }
+
+    public void drawLine(int x1, int y1, int x2, int y2) {
+        g.drawLine((int) (x1 * Resources.scaleX), (int) (y1 * Resources.scaleY), (int) (x2 * Resources.scaleX), (int) (y2 * Resources.scaleY));
+    }
 }
