@@ -1,6 +1,7 @@
 // This class features resource scaling code found here: https://blog.idrsolutions.com/2019/05/image-scaling-in-java/
 package com.tylerroyer.molasses;
 
+import java.awt.Color;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
@@ -23,14 +24,7 @@ class SplashScreen extends Screen {
 
     @Override
     public void loadResources() {
-        BufferedImage unscaledSplash = Resources.loadEngineGraphicalImage("engine_splash.png");
-        double scaleX = Game.getLooper().getBounds().getWidth() / unscaledSplash.getWidth();
-        double scaleY = Game.getLooper().getBounds().getHeight() / unscaledSplash.getHeight();
-        BufferedImage scaledSplash = new BufferedImage((int) (unscaledSplash.getWidth() * scaleX), (int) (unscaledSplash.getHeight() * scaleY), BufferedImage.TYPE_INT_ARGB);
-        final AffineTransform at = AffineTransform.getScaleInstance(scaleX, scaleY);
-        final AffineTransformOp ato = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
-        scaledSplash = ato.filter(unscaledSplash, scaledSplash);
-        splash = scaledSplash;
+        splash = Resources.loadEngineGraphicalImage("engine_splash.png");
     }
 
     @Override
@@ -44,6 +38,12 @@ class SplashScreen extends Screen {
 
     @Override
     public void render(GameGraphics g) {
-        g.drawImage(splash, 0, 0, Game.getWindow());
+        if (splash == null) return;
+
+        Game.setBackgroundColor(new Color(50, 25, 0));
+
+        int x = Game.getLooper().getWidth() / 2 - splash.getWidth() / 2;
+        int y = Game.getLooper().getHeight() / 2 - splash.getHeight() / 2;
+        g.drawImage(splash, (int) (x * (1 / Resources.scaleX)), (int) (y * (1 / Resources.scaleY)), Game.getWindow());
     }
 }
