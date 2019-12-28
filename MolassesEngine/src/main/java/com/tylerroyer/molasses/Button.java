@@ -6,10 +6,12 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Button {
     BufferedImage pressed, unpressed, highlighted;
     int x, y;
+    ArrayList<ButtonListener> buttonListeners = new ArrayList<>();
 
     public Button(BufferedImage pressed, BufferedImage unpressed, BufferedImage highlighted, int x, int y) {
         this.pressed = pressed;
@@ -60,7 +62,7 @@ public class Button {
     }
 
     private boolean isMouseHovering() {
-        // TODO This works.  But omg is it ugly.  Try to clean it up.
+        // TODO This works.  But omg is it ugly.  Try to clean it up.  Try using x/y in onClick?
         int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + pressed.getWidth() * (1 / Resources.scaleX));
         int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + pressed.getHeight() * (1 / Resources.scaleY));
         Point mouseOffset = new Point(mouseOffsetX, mouseOffsetY);
@@ -74,6 +76,10 @@ public class Button {
         return isMouseHovering() && Game.getMouseHandler().isDown();
     }
 
+    public void addButtonListener(ButtonListener buttonListener) {
+        this.buttonListeners.add(buttonListener);
+    }
+
     public void render(GameGraphics g) {
         if (isDown())
             g.drawImage(pressed, x, y, Game.getWindow());
@@ -81,5 +87,13 @@ public class Button {
             g.drawImage(highlighted, x, y, Game.getWindow());
         else
             g.drawImage(unpressed, x, y, Game.getWindow());
+    }
+
+    void onClick(int x, int y) {
+        if (isMouseHovering()) {
+            for (ButtonListener buttonListener : buttonListeners) {
+                buttonListener.onButtonClick(this);
+            }
+        }
     }
 }

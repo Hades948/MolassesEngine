@@ -20,11 +20,13 @@ class TestScreen extends Screen {
     public void loadResources() {
         Font font = new Font("Helvetica", Font.PLAIN, 12);
         colorButton = new Button("Test", font, Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, 50, 50, 25, 10);
+        this.addButton(colorButton);
 
         BufferedImage pressed = Resources.loadGraphicalImage("pressed.png");
         BufferedImage unpressed = Resources.loadGraphicalImage("unpressed.png");
         BufferedImage highlighted = Resources.loadGraphicalImage("highlighted.png");
         imageButton = new Button(pressed, unpressed, highlighted, 130, 15);
+        this.addButton(imageButton);
 
         timer.start();
 
@@ -72,5 +74,11 @@ class TestScreen extends Screen {
 
         imagePE.render(g);
         g.drawString("image pe", 405, 95);
+    }
+
+    @Override
+    public void onButtonClick(Button clickedButton) {
+        if (clickedButton == colorButton) System.out.println("Color button clicked!");
+        if (clickedButton == imageButton) System.out.println("Image button clicked!");
     }
 }
