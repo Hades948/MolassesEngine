@@ -8,15 +8,9 @@ import java.awt.image.BufferedImage;
  */
 class SplashScreen extends Screen {
     private int counter = 0;
-    private Screen firstScreen;
     private BufferedImage splash;
 
-    /**
-     * @param firstScreen The screen to switch to after the splash screen has finished.
-     */
-    public SplashScreen(Screen firstScreen) {
-        this.firstScreen = firstScreen;
-    }
+    public SplashScreen() {}
 
     @Override
     public void loadResources() {
@@ -28,7 +22,7 @@ class SplashScreen extends Screen {
         counter++;
 
         if (counter >= 2*60) {
-            Game.setCurrentScreen(firstScreen);
+            Game.setCurrentScreen(Config.firstScreen);
         }
     }
 

@@ -18,13 +18,13 @@ public class Resources {
     private static final String GRAPHICAL_PATH = "/res/";
     public static double scaleX, scaleY;
 
-    public static void init(double devScreenWidth, double devScreenHeight) {
+    public static void init() {
         Resources.graphical = new HashMap<>();
         
         double userScreenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         double userScreenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-        Resources.scaleX = userScreenWidth / devScreenWidth;
-        Resources.scaleY = userScreenHeight / devScreenHeight;
+        Resources.scaleX = userScreenWidth / Config.devScreenWidth;
+        Resources.scaleY = userScreenHeight / Config.devScreenHeight;
     }
 
     /**

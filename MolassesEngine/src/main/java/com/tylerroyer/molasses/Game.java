@@ -7,12 +7,14 @@ import java.awt.Color;
  * Static classs to hold all important instances for the game.
  */
 public class Game {
-    public static void init(int windowWidth, int windowHeight, String title, Screen firstScreen) {
+    public static void start() {
+        Resources.init();
+
         keyboardHandler = new KeyboardHandler();
         mouseHandler = new MouseHandler();
-        looper = new Looper((int) (windowWidth * Resources.scaleX), (int) (windowHeight * Resources.scaleY));
-        window = new Window(title);
-        setCurrentScreen(new SplashScreen(firstScreen));
+        looper = new Looper((int) (Config.windowWidth * Resources.scaleX), (int) (Config.windowHeight * Resources.scaleY));
+        window = new Window(Config.windowTitle);
+        setCurrentScreen(new SplashScreen());
     }
 
     /**
