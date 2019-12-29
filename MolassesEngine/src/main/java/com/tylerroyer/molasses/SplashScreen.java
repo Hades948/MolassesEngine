@@ -1,11 +1,7 @@
-// This class features resource scaling code found here: https://blog.idrsolutions.com/2019/05/image-scaling-in-java/
 package com.tylerroyer.molasses;
 
 import java.awt.Color;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 
 /**
  * A basic splash screen to play at the launch of the game.
