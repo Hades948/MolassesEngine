@@ -60,6 +60,10 @@ public class Resources {
     }
 
     public static BufferedImage scaleImage(BufferedImage image) {
+        return scaleImage(image, scaleX, scaleY);
+    }
+
+    public static BufferedImage scaleImage(BufferedImage image, double scaleX, double scaleY) {
         BufferedImage scaledImage = new BufferedImage((int) (image.getWidth() * scaleX), (int) (image.getHeight() * scaleY), BufferedImage.TYPE_INT_ARGB);
         final AffineTransform at = AffineTransform.getScaleInstance(scaleX, scaleY);
         final AffineTransformOp ato = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
