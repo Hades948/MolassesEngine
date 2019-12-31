@@ -79,4 +79,8 @@ public class Resources {
     public static BufferedImage getGraphicalResource(String name) {
         return graphical.get(name);
     }
+
+    public static void addGraphicalResource(String name, BufferedImage resource) {
+        graphical.put(name, resource);
+    }
 }
