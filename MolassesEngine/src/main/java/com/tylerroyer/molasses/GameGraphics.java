@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.ImageObserver;
+import java.awt.Rectangle;
 
 public class GameGraphics {
     private Graphics2D g;
@@ -17,12 +18,26 @@ public class GameGraphics {
         return g.drawImage(image, (int) (x * Resources.scaleX), (int) (y * Resources.scaleY), o);
     }
 
+    public boolean drawImage(Image image, int x, int y) {
+        return drawImage(image, x, y, Game.getWindow());
+    }
+
     public void setFont(Font font) {
         g.setFont(font.deriveFont((float) (font.getSize2D() * Resources.scaleX)));
     }
 
     public void setColor(Color color) {
         g.setColor(color);
+    }
+
+    public void setClip(Rectangle r) {
+        Rectangle scaledRect = new Rectangle((int) (r.getX() * Resources.scaleX), (int) (r.getY() * Resources.scaleX),
+                (int) (r.getWidth() * Resources.scaleX), (int) (r.getHeight() * Resources.scaleX));
+        g.clip(scaledRect);
+    }
+
+    public Rectangle getClip() {
+        return (Rectangle) g.getClip();
     }
 
     public void drawString(String text, int x, int y) {
