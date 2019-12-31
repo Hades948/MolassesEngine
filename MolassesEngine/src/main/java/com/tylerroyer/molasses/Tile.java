@@ -1,19 +1,17 @@
 package com.tylerroyer.molasses;
 
-import java.awt.image.BufferedImage;
-
 public class Tile {
     boolean collisionFlag;
-    BufferedImage image;
+    String imageName;
 
     public Tile() {
         collisionFlag = false;
-        image = null;
+        imageName = "";
     }
 
-    public Tile(boolean collisionFlag, BufferedImage image) {
+    public Tile(boolean collisionFlag, String imageName) {
         this.collisionFlag = collisionFlag;
-        this.image = image;
+        this.imageName = imageName;
     }
 
     public boolean collisionFlag() {
@@ -24,11 +22,11 @@ public class Tile {
         this.collisionFlag = collisionFlag;
     }
 
-    public BufferedImage getImage() {
-        return image;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }
