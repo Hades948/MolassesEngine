@@ -33,7 +33,7 @@ public class GameGraphics {
     public void setClip(Rectangle r) {
         Rectangle scaledRect = new Rectangle((int) (r.getX() * Resources.scaleX), (int) (r.getY() * Resources.scaleX),
                 (int) (r.getWidth() * Resources.scaleX), (int) (r.getHeight() * Resources.scaleX));
-        g.clip(scaledRect);
+        g.setClip(scaledRect);
     }
 
     public Rectangle getClip() {
