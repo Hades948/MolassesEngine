@@ -44,9 +44,6 @@ public class MouseHandler implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        for (Button button : Game.getCurrentScreen().getButtons()) {
-            button.onClick(getX(), getY());
-        }
     }
 
     @Override

@@ -1,17 +1,19 @@
 package com.tylerroyer.molasses;
 
 import java.awt.image.BufferedImage;
+
+import com.tylerroyer.molasses.events.Event;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 public class Button {
     BufferedImage pressed, unpressed, highlighted;
     int x, y;
-    ArrayList<ButtonListener> buttonListeners = new ArrayList<>();
+    Event event;
 
     public Button(BufferedImage pressed, BufferedImage unpressed, BufferedImage highlighted, int x, int y) {
         this.pressed = pressed;
@@ -22,7 +24,7 @@ public class Button {
     }
 
     public Button(String text, Font font, Color pressedColor, Color unpressedColor, Color highlightedColor, Color textColor,
-            int width, int height, int x, int y) {        
+            int width, int height, int x, int y, Event event) {        
         pressed = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         unpressed = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         highlighted = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -55,10 +57,12 @@ public class Button {
         
         this.x = x;
         this.y = y;
+
+        this.event = event;
     }
 
-    public Button(String text, Font font, Color backgroundColor, Color textColor, int width, int height, int x, int y) {        
-        this(text, font, backgroundColor.darker(), backgroundColor, backgroundColor.brighter(), textColor, width, height, x, y);
+    public Button(String text, Font font, Color backgroundColor, Color textColor, int width, int height, int x, int y, Event event) {        
+        this(text, font, backgroundColor.darker(), backgroundColor, backgroundColor.brighter(), textColor, width, height, x, y, event);
     }
 
     private boolean isMouseHovering() {
@@ -76,10 +80,6 @@ public class Button {
         return isMouseHovering() && Game.getMouseHandler().isDown();
     }
 
-    public void addButtonListener(ButtonListener buttonListener) {
-        this.buttonListeners.add(buttonListener);
-    }
-
     public void render(GameGraphics g) {
         if (isDown())
             g.drawImage(pressed, x, y, Game.getWindow());
@@ -89,11 +89,9 @@ public class Button {
             g.drawImage(unpressed, x, y, Game.getWindow());
     }
 
-    void onClick(int x, int y) {
-        if (isMouseHovering()) {
-            for (ButtonListener buttonListener : buttonListeners) {
-                buttonListener.onButtonClick(this);
-            }
+    public void update() {
+        if (isMouseHovering() && isDown()) {
+            event.doAction();
         }
     }
 }

@@ -36,9 +36,4 @@ class SplashScreen extends Screen {
         int y = Game.getLooper().getHeight() / 2 - splash.getHeight() / 2;
         g.drawImage(splash, (int) (x * (1 / Resources.scaleX)), (int) (y * (1 / Resources.scaleY)), Game.getWindow());
     }
-
-    @Override
-    public void onButtonClick(Button clickedButton) {
-        // No buttons.
-    }
 }
