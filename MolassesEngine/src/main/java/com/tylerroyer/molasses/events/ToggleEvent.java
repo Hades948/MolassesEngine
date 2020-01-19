@@ -9,6 +9,7 @@ public class ToggleEvent implements Event {
         this.state = state;
     }
 
+    @Override
     public void doAction() {
         state.setValue(!state.getValue());
     }

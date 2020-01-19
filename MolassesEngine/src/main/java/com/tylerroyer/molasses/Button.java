@@ -14,13 +14,15 @@ public class Button {
     BufferedImage pressed, unpressed, highlighted;
     int x, y;
     Event event;
+    long timeOfLastPress = 0L, currentTime;
 
-    public Button(BufferedImage pressed, BufferedImage unpressed, BufferedImage highlighted, int x, int y) {
+    public Button(BufferedImage pressed, BufferedImage unpressed, BufferedImage highlighted, int x, int y, Event event) {
         this.pressed = pressed;
         this.unpressed = unpressed;
         this.highlighted = highlighted;
         this.x = x;
         this.y = y;
+        this.event = event;
     }
 
     public Button(String text, Font font, Color pressedColor, Color unpressedColor, Color highlightedColor, Color textColor,
@@ -90,8 +92,12 @@ public class Button {
     }
 
     public void update() {
-        if (isMouseHovering() && isDown()) {
+        currentTime = System.currentTimeMillis();
+        // TODO This is just a temp fix for the button click detection.  It just waits half a second until next click is allowed.
+        // TODO   Obviously not ideal, but good enough for testing events.
+        if (isMouseHovering() && isDown() && timeOfLastPress + 500 < currentTime) {
             event.doAction();
+            timeOfLastPress = currentTime;
         }
     }
 }
