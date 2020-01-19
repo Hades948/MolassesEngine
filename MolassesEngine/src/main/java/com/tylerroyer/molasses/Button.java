@@ -14,7 +14,6 @@ public class Button {
     BufferedImage pressed, unpressed, highlighted;
     int x, y;
     Event event;
-    long timeOfLastPress = 0L, currentTime;
 
     public Button(BufferedImage pressed, BufferedImage unpressed, BufferedImage highlighted, int x, int y, Event event) {
         this.pressed = pressed;
@@ -78,6 +77,7 @@ public class Button {
         return scaledBounds.contains(mouseOffset);
     }
 
+    // TODO I think this should just be inlined where needed.
     public boolean isDown() {
         return isMouseHovering() && Game.getMouseHandler().isDown();
     }
@@ -91,13 +91,16 @@ public class Button {
             g.drawImage(unpressed, x, y, Game.getWindow());
     }
 
+    private boolean wasDown = false;
     public void update() {
-        currentTime = System.currentTimeMillis();
-        // TODO This is just a temp fix for the button click detection.  It just waits half a second until next click is allowed.
-        // TODO   Obviously not ideal, but good enough for testing events.
-        if (isMouseHovering() && isDown() && timeOfLastPress + 500 < currentTime) {
+        if (isMouseHovering() && !Game.getMouseHandler().isDown() && wasDown) {
             event.doAction();
-            timeOfLastPress = currentTime;
+        }
+
+        if (isDown()) {
+            wasDown = true;
+        } else {
+            wasDown = false;
         }
     }
 }
