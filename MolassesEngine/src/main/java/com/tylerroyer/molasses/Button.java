@@ -9,11 +9,14 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 
 public class Button {
     BufferedImage pressed, unpressed, highlighted;
     int x, y;
     Event event;
+    Stroke outline = null;
+    Color outlineColor = Color.BLACK;
 
     public Button(BufferedImage pressed, BufferedImage unpressed, BufferedImage highlighted, int x, int y, Event event) {
         this.pressed = pressed;
@@ -81,6 +84,14 @@ public class Button {
         return isMouseHovering() && Game.getMouseHandler().isDown();
     }
 
+    public void setOutline(Stroke outline) {
+        this.outline = outline;
+    }
+
+    public void setOutlineColor(Color outlineColor) {
+        this.outlineColor = outlineColor;
+    }
+
     public void render(GameGraphics g) {
         if (isDown())
             g.drawImage(pressed, x, y, Game.getWindow());
@@ -88,6 +99,13 @@ public class Button {
             g.drawImage(highlighted, x, y, Game.getWindow());
         else
             g.drawImage(unpressed, x, y, Game.getWindow());
+        
+        // Draw outline
+        g.setColor(outlineColor);
+        if (outline != null) {
+            g.setStroke(outline);
+            g.drawRect(x, y, Resources.getResourceSize(pressed).getWidth(), Resources.getResourceSize(pressed).getHeight());
+        }
     }
 
     private boolean wasDown = false;

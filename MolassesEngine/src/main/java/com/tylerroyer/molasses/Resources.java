@@ -81,6 +81,7 @@ public class Resources {
         return graphical.get(name);
     }
 
+    // Would be nice to encapsulate all of this into a Resource class
     public static Dimension getResourceSize(BufferedImage resource) {
         return new Dimension((int) (resource.getWidth() * (1 / scaleX)), (int) (resource.getHeight() * (1 / scaleY)));
     }
