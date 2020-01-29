@@ -1,7 +1,5 @@
 package com.tylerroyer.molasses;
 
-import java.util.ArrayList;
-
 /**
  * Provides basic screen functionality for use with the Loooper.
  */

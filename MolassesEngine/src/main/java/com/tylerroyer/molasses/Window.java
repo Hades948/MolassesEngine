@@ -1,5 +1,7 @@
 package com.tylerroyer.molasses;
 
+import java.awt.Color;
+
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -21,13 +23,35 @@ public class Window extends JFrame {
         setVisible(true);
     }
 
+    public void setBackgroundColor(Color color) {
+        Game.getLooper().setBackground(color);
+    }
+
     private void centerOnScreen() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int windowX, windowY;
 
-        windowX = (int) (screenSize.getWidth() / 2 - this.getWidth() / 2);
-        windowY = (int) (screenSize.getHeight() / 2 - this.getHeight() / 2);
+        windowX = (int) (screenSize.getWidth() / 2 - getActualScaledWidth() / 2);
+        windowY = (int) (screenSize.getHeight() / 2 - getActualScaledHeight() / 2);
 
         setLocation(new Point(windowX, windowY));
+    }
+
+    @Override
+    public int getWidth() {
+        return (int) (super.getWidth() * (1 / Resources.scaleX));
+    }
+
+    public int getActualScaledWidth() {
+        return super.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return (int) (super.getHeight() * (1 / Resources.scaleY));
+    }
+
+    public int getActualScaledHeight() {
+        return super.getHeight();
     }
 }

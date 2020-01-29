@@ -67,12 +67,11 @@ public class Button {
     }
 
     private boolean isMouseHovering() {
-        // TODO This works.  But omg is it ugly.  Try to clean it up.  Try using x/y in onClick?
-        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + pressed.getWidth() * (1 / Resources.scaleX));
-        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + pressed.getHeight() * (1 / Resources.scaleY));
+        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + Resources.getResourceSize(pressed).getWidth());
+        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + Resources.getResourceSize(pressed).getHeight());
         Point mouseOffset = new Point(mouseOffsetX, mouseOffsetY);
-        int width = (int) (pressed.getRaster().getWidth() * (1 / Resources.scaleX));
-        int height = (int) (pressed.getRaster().getHeight() * (1 / Resources.scaleY));
+        int width = (int) Resources.getResourceSize(pressed).getWidth();
+        int height = (int) Resources.getResourceSize(pressed).getHeight();
         Rectangle scaledBounds = new Rectangle(width, height);
         return scaledBounds.contains(mouseOffset);
     }

@@ -1,6 +1,7 @@
 // This class features resource scaling code found here: https://blog.idrsolutions.com/2019/05/image-scaling-in-java/
 package com.tylerroyer.molasses;
 
+import java.awt.Dimension;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
@@ -78,6 +79,22 @@ public class Resources {
      */
     public static BufferedImage getGraphicalResource(String name) {
         return graphical.get(name);
+    }
+
+    public static Dimension getResourceSize(BufferedImage resource) {
+        return new Dimension((int) (resource.getWidth() * (1 / scaleX)), (int) (resource.getHeight() * (1 / scaleY)));
+    }
+
+    public static Dimension getActualScaledResourceSize(BufferedImage resource) {
+        return new Dimension(resource.getWidth(), resource.getHeight());
+    }
+
+    public static Dimension getResourceSize(String imageName) {
+        return getResourceSize(getGraphicalResource(imageName));
+    }
+
+    public static Dimension getActualScaledResourceSize(String imageName) {
+        return getActualScaledResourceSize(getGraphicalResource(imageName));
     }
 
     public static void addGraphicalResource(String name, BufferedImage resource) {
