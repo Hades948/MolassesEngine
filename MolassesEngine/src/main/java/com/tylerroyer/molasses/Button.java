@@ -1,6 +1,8 @@
 package com.tylerroyer.molasses;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 
 import com.tylerroyer.molasses.events.Event;
 
@@ -17,6 +19,48 @@ public class Button {
     Event event;
     Stroke outline = null;
     Color outlineColor = Color.BLACK;
+
+    public Button(BufferedImage unpressed, int x, int y, Event event) {
+        this.x = x;
+        this.y = y;
+        this.event = event;
+        this.unpressed = unpressed;
+        this.pressed = darker(unpressed);
+        this.highlighted = brighter(unpressed);
+    }
+
+    private BufferedImage darker(BufferedImage src) {
+        BufferedImage res = bufferedImageDeepCopy(src);
+
+        for (int i = 0; i < res.getWidth(); i++) {
+            for (int j = 0; j < res.getHeight(); j++) {
+                int darkerColor = new Color(res.getRGB(i, j)).darker().getRGB();
+                res.setRGB(i, j, darkerColor);
+            }
+        }
+
+        return res;
+    }
+
+    private BufferedImage brighter(BufferedImage src) {
+        BufferedImage res = bufferedImageDeepCopy(src);
+
+        for (int i = 0; i < res.getWidth(); i++) {
+            for (int j = 0; j < res.getHeight(); j++) {
+                int lighterColor = new Color(res.getRGB(i, j)).brighter().getRGB();
+                res.setRGB(i, j, lighterColor);
+            }
+        }
+
+        return res;
+    }
+
+    private BufferedImage bufferedImageDeepCopy(BufferedImage src) {
+        ColorModel colorModel = src.getColorModel();
+        boolean isAlphaRemultiplied = colorModel.isAlphaPremultiplied();
+        WritableRaster raster = src.copyData(null);
+        return new BufferedImage(colorModel, raster, isAlphaRemultiplied, null);
+    }
 
     public Button(BufferedImage pressed, BufferedImage unpressed, BufferedImage highlighted, int x, int y, Event event) {
         this.pressed = pressed;
