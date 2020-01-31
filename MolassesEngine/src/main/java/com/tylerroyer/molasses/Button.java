@@ -3,6 +3,7 @@ package com.tylerroyer.molasses;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
+import java.util.ArrayList;
 
 import com.tylerroyer.molasses.events.Event;
 
@@ -16,14 +17,14 @@ import java.awt.Stroke;
 public class Button {
     BufferedImage pressed, unpressed, highlighted;
     int x, y;
-    Event event;
+    ArrayList<Event> events = new ArrayList<>();
     Stroke outline = null;
     Color outlineColor = Color.BLACK;
 
     public Button(BufferedImage unpressed, int x, int y, Event event) {
         this.x = x;
         this.y = y;
-        this.event = event;
+        this.events.add(event);
         this.unpressed = unpressed;
         this.pressed = darker(unpressed);
         this.highlighted = brighter(unpressed);
@@ -68,7 +69,7 @@ public class Button {
         this.highlighted = highlighted;
         this.x = x;
         this.y = y;
-        this.event = event;
+        this.events.add(event);
     }
 
     public Button(String text, Font font, Color pressedColor, Color unpressedColor, Color highlightedColor, Color textColor,
@@ -106,7 +107,7 @@ public class Button {
         this.x = x;
         this.y = y;
 
-        this.event = event;
+        this.events.add(event);
     }
 
     public Button(String text, Font font, Color backgroundColor, Color textColor, int width, int height, int x, int y, Event event) {        
@@ -155,7 +156,9 @@ public class Button {
     private boolean wasDown = false;
     public void update() {
         if (isMouseHovering() && !Game.getMouseHandler().isDown() && wasDown) {
-            event.doAction();
+            for (Event e : events) {
+                e.doAction();
+            }
         }
 
         if (isDown()) {
@@ -163,5 +166,9 @@ public class Button {
         } else {
             wasDown = false;
         }
+    }
+
+    public void addEvent(Event event) {
+        events.add(event);
     }
 }
