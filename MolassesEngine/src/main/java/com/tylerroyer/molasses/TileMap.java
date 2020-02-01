@@ -16,8 +16,27 @@ public class TileMap {
         }
     }
 
-    // TODO Ideally, tiles would be completely hiden, but I'm keeping it like this for development.
-    public ArrayList<ArrayList<Tile>> getTiles() {
-        return tiles;
+    public void fillTileMap(String imageName) {
+        for (ArrayList<Tile> tileList : tiles) {
+            for (Tile tile : tileList) {
+                tile.setImageName(imageName);
+            }
+        }
+    }
+
+    public Tile getTile(int tileX, int tileY) {
+        return tiles.get(tileY).get(tileX);
+    }
+
+    public void setTile(int tileX, int tileY, String imageName) {
+        getTile(tileX, tileY).setImageName(imageName);
+    }
+
+    public int getWidth() {
+        return tiles.get(0).size();
+    }
+
+    public int getHeight() {
+        return tiles.size();
     }
 }
