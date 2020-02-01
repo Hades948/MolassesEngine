@@ -1,18 +1,52 @@
 package com.tylerroyer.molasses;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TileMap {
-    private ArrayList<ArrayList<Tile>> tiles;
+    private ArrayList<ArrayList<Tile>> tiles = new ArrayList<>();
+    private ArrayList<String> tileNames = new ArrayList<>();
 
     public TileMap(int width, int height) {
-        tiles = new ArrayList<>();
-
         for (int i = 0; i < height; i++) {
             tiles.add(new ArrayList<Tile>());
             for (int j = 0; j < width; j++) {
                 tiles.get(i).add(new Tile());
             }
+        }
+    }
+
+    public TileMap(String tileMapResourceName) {
+        try (Scanner scanner = new Scanner(new FileInputStream(new File(Config.projectResourcePath + tileMapResourceName)))) {
+            String tileName = scanner.nextLine();
+            while (!tileName.equals(";")) {
+                tileNames.add(tileName);
+                tileName = scanner.nextLine();
+            }
+            int width = Integer.parseInt(scanner.nextLine());
+            int height = Integer.parseInt(scanner.nextLine());
+
+            for (int i = 0; i < height; i++) {
+                tiles.add(new ArrayList<Tile>());
+                for (int j = 0; j < width; j++) {
+                    tiles.get(i).add(new Tile());
+                }
+            }
+
+            fillTileMap(scanner.nextLine());
+
+            while (scanner.hasNextLine()) {
+                String name = scanner.next();
+                int x = scanner.nextInt();
+                int y = scanner.nextInt();
+
+                setTile(x, y, name);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -38,5 +72,9 @@ public class TileMap {
 
     public int getHeight() {
         return tiles.size();
+    }
+
+    public ArrayList<String> getTileNames() {
+        return tileNames;
     }
 }

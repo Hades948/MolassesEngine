@@ -10,4 +10,5 @@ public class Config {
     public static String windowTitle = "Built on The Molasses Game Engine";
     public static Screen firstScreen = null;
     public static Font gameFont = new Font("Helvetica", Font.PLAIN, 42);
+    public static String projectResourcePath = "Please specify resource path in config to load ";
 }
