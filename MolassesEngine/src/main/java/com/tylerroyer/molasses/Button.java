@@ -15,55 +15,22 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 
 public class Button {
-    BufferedImage pressed, unpressed, highlighted;
+    GraphicalResource pressed, unpressed, highlighted;
     int x, y;
     ArrayList<Event> events = new ArrayList<>();
     Stroke outline = null;
     Color outlineColor = Color.BLACK;
 
-    public Button(BufferedImage unpressed, int x, int y, Event event) {
+    public Button(GraphicalResource unpressed, int x, int y, Event event) {
         this.x = x;
         this.y = y;
         this.events.add(event);
         this.unpressed = unpressed;
-        this.pressed = darker(unpressed);
-        this.highlighted = brighter(unpressed);
+        this.pressed = unpressed.getDarkerCopy();
+        this.highlighted = unpressed.getBrighterCopy();
     }
 
-    private BufferedImage darker(BufferedImage src) {
-        BufferedImage res = bufferedImageDeepCopy(src);
-
-        for (int i = 0; i < res.getWidth(); i++) {
-            for (int j = 0; j < res.getHeight(); j++) {
-                int darkerColor = new Color(res.getRGB(i, j)).darker().getRGB();
-                res.setRGB(i, j, darkerColor);
-            }
-        }
-
-        return res;
-    }
-
-    private BufferedImage brighter(BufferedImage src) {
-        BufferedImage res = bufferedImageDeepCopy(src);
-
-        for (int i = 0; i < res.getWidth(); i++) {
-            for (int j = 0; j < res.getHeight(); j++) {
-                int lighterColor = new Color(res.getRGB(i, j)).brighter().getRGB();
-                res.setRGB(i, j, lighterColor);
-            }
-        }
-
-        return res;
-    }
-
-    private BufferedImage bufferedImageDeepCopy(BufferedImage src) {
-        ColorModel colorModel = src.getColorModel();
-        boolean isAlphaRemultiplied = colorModel.isAlphaPremultiplied();
-        WritableRaster raster = src.copyData(null);
-        return new BufferedImage(colorModel, raster, isAlphaRemultiplied, null);
-    }
-
-    public Button(BufferedImage pressed, BufferedImage unpressed, BufferedImage highlighted, int x, int y, Event event) {
+    public Button(GraphicalResource pressed, GraphicalResource unpressed, GraphicalResource highlighted, int x, int y, Event event) {
         this.pressed = pressed;
         this.unpressed = unpressed;
         this.highlighted = highlighted;
@@ -74,11 +41,11 @@ public class Button {
 
     public Button(String text, Font font, Color pressedColor, Color unpressedColor, Color highlightedColor, Color textColor,
             int width, int height, int x, int y, Event event) {        
-        pressed = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        unpressed = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        highlighted = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage pressedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage unpressedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage highlightedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-        Graphics2D gPressed = pressed.createGraphics();
+        Graphics2D gPressed = pressedImage.createGraphics();
         gPressed.setColor(pressedColor);
         gPressed.fillRect(0, 0, width, height);
         gPressed.setFont(font);
@@ -86,23 +53,27 @@ public class Button {
         // TODO Try to center the text on the button.  (POE Code?)
         gPressed.drawString(text, 10, height - 10);
 
-        Graphics2D gUnpressed = unpressed.createGraphics();
+        Graphics2D gUnpressed = unpressedImage.createGraphics();
         gUnpressed.setColor(unpressedColor);
         gUnpressed.fillRect(0, 0, width, height);
         gUnpressed.setFont(font);
         gUnpressed.setColor(textColor);
         gUnpressed.drawString(text, 10, height - 10);
 
-        Graphics2D gHighlighted = highlighted.createGraphics();
+        Graphics2D gHighlighted = highlightedImage.createGraphics();
         gHighlighted.setColor(highlightedColor.brighter());
         gHighlighted.fillRect(0, 0, width, height);
         gHighlighted.setFont(font);
         gHighlighted.setColor(textColor);
         gHighlighted.drawString(text, 10, height - 10);
 
-        pressed = Resources.scaleImage(pressed);
-        unpressed = Resources.scaleImage(unpressed);
-        highlighted = Resources.scaleImage(highlighted);
+        this.pressed = new StaticGraphicalResource(pressedImage);
+        this.unpressed = new StaticGraphicalResource(unpressedImage);
+        this.highlighted = new StaticGraphicalResource(highlightedImage);
+
+        this.pressed.scaleResource(Resources.scaleX, Resources.scaleY);
+        this.unpressed.scaleResource(Resources.scaleX, Resources.scaleY);
+        this.highlighted.scaleResource(Resources.scaleX, Resources.scaleY);
         
         this.x = x;
         this.y = y;
@@ -115,12 +86,10 @@ public class Button {
     }
 
     private boolean isMouseHovering() {
-        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + Resources.getResourceSize(pressed).getWidth());
-        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + Resources.getResourceSize(pressed).getHeight());
+        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + unpressed.getWidth());
+        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + unpressed.getHeight());
         Point mouseOffset = new Point(mouseOffsetX, mouseOffsetY);
-        int width = (int) Resources.getResourceSize(pressed).getWidth();
-        int height = (int) Resources.getResourceSize(pressed).getHeight();
-        Rectangle scaledBounds = new Rectangle(width, height);
+        Rectangle scaledBounds = new Rectangle((int) unpressed.getWidth(), (int) unpressed.getHeight());
         return scaledBounds.contains(mouseOffset);
     }
 
@@ -139,17 +108,17 @@ public class Button {
 
     public void render(GameGraphics g) {
         if (isDown())
-            g.drawImage(pressed, x, y, Game.getWindow());
+            g.drawImage(pressed.getImage(), x, y, Game.getWindow());
         else if (isMouseHovering())
-            g.drawImage(highlighted, x, y, Game.getWindow());
+            g.drawImage(highlighted.getImage(), x, y, Game.getWindow());
         else
-            g.drawImage(unpressed, x, y, Game.getWindow());
+            g.drawImage(unpressed.getImage(), x, y, Game.getWindow());
         
         // Draw outline
         g.setColor(outlineColor);
         if (outline != null) {
             g.setStroke(outline);
-            g.drawRect(x, y, Resources.getResourceSize(pressed).getWidth(), Resources.getResourceSize(pressed).getHeight());
+            g.drawRect(x, y, unpressed.getWidth(), unpressed.getHeight());
         }
     }
 

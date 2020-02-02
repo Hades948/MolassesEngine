@@ -1,10 +1,6 @@
-// This class features resource scaling code found here: https://blog.idrsolutions.com/2019/05/image-scaling-in-java/
 package com.tylerroyer.molasses;
 
-import java.awt.Dimension;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.geom.AffineTransform;
 import java.awt.Toolkit;
 import java.util.HashMap;
 import java.io.*;
@@ -15,7 +11,7 @@ import javax.imageio.ImageIO;
  * Helper class for resource IO.
  */
 public class Resources {
-    private static HashMap<String, BufferedImage> graphical;
+    private static HashMap<String, GraphicalResource> graphical;
     private static final String GRAPHICAL_PATH = "/res/";
     public static double scaleX, scaleY;
 
@@ -43,8 +39,10 @@ public class Resources {
     public static BufferedImage loadGraphicalImage(String name) {
         BufferedImage image = null;
         try {
-            image = scaleImage(ImageIO.read(Resources.class.getResourceAsStream(GRAPHICAL_PATH + name)));
-            graphical.put(name, image);
+            image = ImageIO.read(Resources.class.getResourceAsStream(GRAPHICAL_PATH + name));
+            GraphicalResource resource = new StaticGraphicalResource(image);
+            resource.scaleResource(scaleX, scaleY);
+            graphical.put(name, resource);
         } catch (IOException e) {e.printStackTrace();}
 
         return image;
@@ -53,52 +51,24 @@ public class Resources {
     static BufferedImage loadEngineGraphicalImage(String name) {
         BufferedImage image = null;
         try {
-            image = scaleImage(ImageIO.read(Resources.class.getResourceAsStream(name)));
-            graphical.put(name, image);
+            image = ImageIO.read(Resources.class.getResourceAsStream(name));
+            GraphicalResource resource = new StaticGraphicalResource(image);
+            resource.scaleResource(scaleX, scaleY);
+            graphical.put(name, resource);
         } catch (IOException e) {e.printStackTrace();}
 
         return image;
-    }
-
-    public static BufferedImage scaleImage(BufferedImage image) {
-        return scaleImage(image, scaleX, scaleY);
-    }
-
-    public static BufferedImage scaleImage(BufferedImage image, double scaleX, double scaleY) {
-        BufferedImage scaledImage = new BufferedImage((int) (image.getWidth() * scaleX), (int) (image.getHeight() * scaleY), BufferedImage.TYPE_INT_ARGB);
-        final AffineTransform at = AffineTransform.getScaleInstance(scaleX, scaleY);
-        final AffineTransformOp ato = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
-        scaledImage = ato.filter(image, scaledImage);
-        
-        return scaledImage;
     }
 
     /**
      * @param name The name of the image file.
      * @return A pointer to the loaded image with the given name.
      */
-    public static BufferedImage getGraphicalResource(String name) {
+    public static GraphicalResource getGraphicalResource(String name) {
         return graphical.get(name);
     }
 
-    // Would be nice to encapsulate all of this into a Resource class
-    public static Dimension getResourceSize(BufferedImage resource) {
-        return new Dimension((int) (resource.getWidth() * (1 / scaleX)), (int) (resource.getHeight() * (1 / scaleY)));
-    }
-
-    public static Dimension getActualScaledResourceSize(BufferedImage resource) {
-        return new Dimension(resource.getWidth(), resource.getHeight());
-    }
-
-    public static Dimension getResourceSize(String imageName) {
-        return getResourceSize(getGraphicalResource(imageName));
-    }
-
-    public static Dimension getActualScaledResourceSize(String imageName) {
-        return getActualScaledResourceSize(getGraphicalResource(imageName));
-    }
-
-    public static void addGraphicalResource(String name, BufferedImage resource) {
+    public static void addGraphicalResource(String name, GraphicalResource resource) {
         graphical.put(name, resource);
     }
 }
