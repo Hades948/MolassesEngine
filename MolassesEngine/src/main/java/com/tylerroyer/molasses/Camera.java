@@ -4,9 +4,15 @@ import org.apache.commons.lang3.mutable.MutableDouble;
 
 public class Camera {
     private MutableDouble offsetX, offsetY;
+
     public Camera(MutableDouble offsetX, MutableDouble offsetY) {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
+    }
+
+    public Camera() {
+        this.offsetX = new MutableDouble();
+        this.offsetY = new MutableDouble();
     }
 
     public double getOffsetX() {

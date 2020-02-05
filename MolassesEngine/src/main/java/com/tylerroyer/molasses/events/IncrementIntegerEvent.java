@@ -3,9 +3,9 @@ package com.tylerroyer.molasses.events;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 public class IncrementIntegerEvent implements Event {
-    MutableInt value;
-    int step;
-    int max;
+    private MutableInt value;
+    private int step;
+    private int max;
 
     public IncrementIntegerEvent(MutableInt value, int step, int max) {
         if (step <= 0) throw new IllegalArgumentException("Step must be positive.");

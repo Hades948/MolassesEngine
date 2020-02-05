@@ -3,7 +3,7 @@ package com.tylerroyer.molasses.events;
 import com.tylerroyer.molasses.*;
 
 public class ChangeScreenEvent implements Event {
-    Screen newScreen;
+    private Screen newScreen;
 
     public ChangeScreenEvent(Screen newScreen) {
         this.newScreen = newScreen;

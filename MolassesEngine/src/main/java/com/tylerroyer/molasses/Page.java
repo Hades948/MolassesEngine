@@ -36,11 +36,13 @@ public class Page {
         } catch (IOException e) {e.printStackTrace();}
     }
 
-    public Page(BufferedImage image) {
+    public Page(BufferedImage image, double scaleX, double scaleY) {
         this.image = image;
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
     }
 
-    BufferedImage getImage() {
+    public BufferedImage getImage() {
         return image;
     }
 
@@ -90,7 +92,7 @@ public class Page {
             }
         }
 
-        return new Page(res);
+        return new Page(res, this.scaleX, this.scaleY);
     }
 
     public Page getBrighterCopy() {
@@ -98,11 +100,11 @@ public class Page {
 
         for (int i = 0; i < res.getWidth(); i++) {
             for (int j = 0; j < res.getHeight(); j++) {
-                int darkerColor = new Color(res.getRGB(i, j)).brighter().getRGB();
-                res.setRGB(i, j, darkerColor);
+                int brighterColor = new Color(res.getRGB(i, j)).brighter().getRGB();
+                res.setRGB(i, j, brighterColor);
             }
         }
 
-        return new Page(res);
+        return new Page(res, this.scaleX, this.scaleY);
     }
 }

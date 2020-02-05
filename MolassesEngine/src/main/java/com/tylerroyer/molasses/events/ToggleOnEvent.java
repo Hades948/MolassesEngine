@@ -3,7 +3,7 @@ package com.tylerroyer.molasses.events;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
 public class ToggleOnEvent implements Event {
-    MutableBoolean state;
+    private MutableBoolean state;
 
     public ToggleOnEvent(MutableBoolean state) {
         this.state = state;

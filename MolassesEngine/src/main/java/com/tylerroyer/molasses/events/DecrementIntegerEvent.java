@@ -3,9 +3,9 @@ package com.tylerroyer.molasses.events;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 public class DecrementIntegerEvent implements Event {
-    MutableInt value;
-    int step;
-    int min;
+    private MutableInt value;
+    private int step;
+    private int min;
 
     public DecrementIntegerEvent(MutableInt value, int step, int min) {
         if (step <= 0) throw new IllegalArgumentException("Step must be positive.");

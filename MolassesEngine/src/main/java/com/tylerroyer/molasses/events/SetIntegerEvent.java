@@ -3,8 +3,8 @@ package com.tylerroyer.molasses.events;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 public class SetIntegerEvent implements Event {
-    MutableInt value;
-    int setTo;
+    private MutableInt value;
+    private int setTo;
 
     public SetIntegerEvent(MutableInt value, int setTo) {
         this.value = value;

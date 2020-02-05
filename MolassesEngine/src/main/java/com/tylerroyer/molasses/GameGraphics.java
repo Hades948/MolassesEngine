@@ -18,7 +18,8 @@ public class GameGraphics {
     public boolean drawPage(Page page, double x, double y, ImageObserver o) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        return g.drawImage(page.getImage(), (int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY), o);
+        boolean result =  g.drawImage(page.getImage(), (int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY), o);
+        return result;
     }
 
     public boolean drawPage(Page page, double x, double y) {

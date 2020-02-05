@@ -5,12 +5,14 @@ import com.tylerroyer.molasses.events.Event;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class FlipBook {
     private enum FlipBookType {SPRING, CYCLIC, RANDOM};
-    private FlipBookType flipBookType;
+    private FlipBookType flipBookType = FlipBookType.CYCLIC;
     private boolean started = false;
     private long timeOfStart;
     private long flipDelay;
@@ -18,14 +20,32 @@ public class FlipBook {
     private List<Page> pages;
     private List<Event> events;
     
+    // Copy constructor.
+    public FlipBook(FlipBook other) {
+        this.flipBookType = other.flipBookType;
+        this.flipDelay = other.flipDelay;
+        this.pages = new ArrayList<>();
+        for (Page p : other.pages) {
+            this.pages.add(new Page(p));
+        }
+        this.events = other.events;
+    }
+
     public FlipBook(String flipBookFileName) {
+        this.pages = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(new File(Config.projectResourcePath + flipBookFileName)))) {
-            flipDelay = scanner.nextLong();
+            flipDelay = Long.parseLong(scanner.nextLine());
+            System.out.println(flipDelay);
             flipBookType = FlipBookType.valueOf(scanner.nextLine().toUpperCase());
             while (scanner.hasNextLine()) {
                 pages.add(new Page(scanner.nextLine()));
             }
         } catch (FileNotFoundException e) {e.printStackTrace();}
+    }
+
+    public FlipBook(long flipDelay, Page... pages) {
+        this.flipDelay = flipDelay;
+        this.pages = Arrays.asList(pages);
     }
 
     public void addEvent(Event event) {
@@ -39,31 +59,62 @@ public class FlipBook {
         }
 
         // Alter pageIndex if needed.
-        switch (flipBookType) {
-            default:
-            case SPRING:
-                // TODO
-                break;
-            case CYCLIC:
-                long range = flipDelay * pages.size();
-                long timeSinceStart = System.currentTimeMillis() - timeOfStart;
-                pageIndex = (int) (timeSinceStart % range / pages.size());
-                break;
-            case RANDOM:
-                // TODO
-                break;
+        if (pages.size() == 1 || flipDelay < 1) {
+            pageIndex = 0;
+        } else {
+            switch (flipBookType) {
+                default:
+                case SPRING:
+                    // TODO
+                    break;
+                case CYCLIC:
+                    long range = flipDelay * pages.size();
+                    long timeSinceStart = System.currentTimeMillis() - timeOfStart;
+                    pageIndex = (int) (timeSinceStart % range / flipDelay);
+                    break;
+                case RANDOM:
+                    // TODO
+                    break;
+            }
         }
 
         // Trigger events if needed.
         // TODO This needs testing.  These will get triggered more than once if the animation continues.
-        if (pageIndex == pages.size() - 1) {
-            for (Event e : events) {
-                e.doAction();
+        if (events != null && !events.isEmpty()) {
+            if (pageIndex == pages.size() - 1) {
+                for (Event e : events) {
+                    e.doAction();
+                }
             }
         }
     }
 
     public Page getCurrentPage() {
+        if (pages.isEmpty()) return null;
         return pages.get(pageIndex);
+    }
+
+    public FlipBook getDarkerCopy() {
+        FlipBook res = new FlipBook(this);
+        for (int i = 0; i < res.pages.size(); i++) {
+            res.pages.set(i, res.pages.get(i).getDarkerCopy());
+        }
+
+        return res;
+    }
+
+    public FlipBook getBrighterCopy() {
+        FlipBook res = new FlipBook(this);
+        for (int i = 0; i < res.pages.size(); i++) {
+            res.pages.set(i, res.pages.get(i).getBrighterCopy());
+        }
+
+        return res;
+    }
+
+    public void scale(double scaleX, double scaleY) {
+        for (Page p : pages) {
+            p.scale(scaleX, scaleY);
+        }
     }
 }

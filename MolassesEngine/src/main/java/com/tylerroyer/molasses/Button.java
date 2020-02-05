@@ -13,13 +13,13 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 
 public class Button {
-    Page pressed, unpressed, highlighted;
+    FlipBook pressed, unpressed, highlighted;
     int x, y;
     ArrayList<Event> events = new ArrayList<>();
     Stroke outline = null;
     Color outlineColor = Color.BLACK;
 
-    public Button(Page unpressed, int x, int y, Event event) {
+    public Button(FlipBook unpressed, int x, int y, Event event) {
         this.x = x;
         this.y = y;
         this.events.add(event);
@@ -28,7 +28,7 @@ public class Button {
         this.highlighted = unpressed.getBrighterCopy();
     }
 
-    public Button(Page pressed, Page unpressed, Page highlighted, int x, int y, Event event) {
+    public Button(FlipBook pressed, FlipBook unpressed, FlipBook highlighted, int x, int y, Event event) {
         this.pressed = pressed;
         this.unpressed = unpressed;
         this.highlighted = highlighted;
@@ -65,9 +65,9 @@ public class Button {
         gHighlighted.setColor(textColor);
         gHighlighted.drawString(text, 10, height - 10);
 
-        this.pressed = new Page(pressedImage);
-        this.unpressed = new Page(unpressedImage);
-        this.highlighted = new Page(highlightedImage);
+        this.pressed = new FlipBook(0, new Page(pressedImage, 1.0, 1.0));
+        this.unpressed = new FlipBook(0, new Page(unpressedImage, 1.0, 1.0));
+        this.highlighted = new FlipBook(0, new Page(highlightedImage, 1.0, 1.0));
 
         this.pressed.scale(Game.scaleX, Game.scaleY);
         this.unpressed.scale(Game.scaleX, Game.scaleY);
@@ -84,10 +84,11 @@ public class Button {
     }
 
     private boolean isMouseHovering() {
-        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + unpressed.getWidth());
-        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + unpressed.getHeight());
+        Page currentPage = unpressed.getCurrentPage();
+        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + currentPage.getWidth());
+        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + currentPage.getHeight());
         Point mouseOffset = new Point(mouseOffsetX, mouseOffsetY);
-        Rectangle scaledBounds = new Rectangle((int) unpressed.getWidth(), (int) unpressed.getHeight());
+        Rectangle scaledBounds = new Rectangle((int) currentPage.getWidth(), (int) currentPage.getHeight());
         return scaledBounds.contains(mouseOffset);
     }
 
@@ -106,22 +107,27 @@ public class Button {
 
     public void render(GameGraphics g) {
         if (isDown())
-            g.drawPage(pressed, x, y, Game.getWindow());
+            g.drawPage(pressed.getCurrentPage(), x, y, Game.getWindow());
         else if (isMouseHovering())
-            g.drawPage(highlighted, x, y, Game.getWindow());
+            g.drawPage(highlighted.getCurrentPage(), x, y, Game.getWindow());
         else
-            g.drawPage(unpressed, x, y, Game.getWindow());
+            g.drawPage(unpressed.getCurrentPage(), x, y, Game.getWindow());
         
         // Draw outline
         g.setColor(outlineColor);
         if (outline != null) {
             g.setStroke(outline);
-            g.drawRect(x, y, unpressed.getWidth(), unpressed.getHeight());
+            g.drawRect(x, y, unpressed.getCurrentPage().getWidth(), unpressed.getCurrentPage().getHeight());
         }
     }
 
     private boolean wasDown = false;
     public void update() {
+        // Update flip books
+        pressed.update();
+        unpressed.update();
+        highlighted.update();
+
         if (isMouseHovering() && !Game.getMouseHandler().isDown() && wasDown) {
             for (Event e : events) {
                 e.doAction();
