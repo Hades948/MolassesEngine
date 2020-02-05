@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 public class TileMap implements GameObject {
+    private double devScale;
     private ArrayList<ArrayList<Tile>> tiles = new ArrayList<>();
     private ArrayList<HashMap<String, FlipBook>> tileMappings = new ArrayList<>();
     private double x, y;
@@ -27,7 +28,11 @@ public class TileMap implements GameObject {
             String flipBookName = scanner.nextLine();
             HashMap<String, FlipBook> map = new HashMap<>();
             while (!flipBookName.equals(";")) {
-                map.put(flipBookName, new FlipBook(flipBookName));
+                FlipBook fb = new FlipBook(flipBookName);
+                devScale = 128 / fb.getCurrentPage().getWidth();
+                fb.scale(devScale, devScale);
+                map.put(flipBookName, fb);
+
                 flipBookName = scanner.nextLine();
             }
             tileMappings.add(map);
@@ -137,7 +142,7 @@ public class TileMap implements GameObject {
 
     public double getTileSize() {
         for (Entry<String, FlipBook> entry : tileMappings.get(getZoomLevelIndex()).entrySet()) {
-            return entry.getValue().getCurrentPage().getWidth() * getZoomLevel();
+            return entry.getValue().getCurrentPage().getWidth() * getZoomLevel() * devScale;
         }
 
         return 0.0;

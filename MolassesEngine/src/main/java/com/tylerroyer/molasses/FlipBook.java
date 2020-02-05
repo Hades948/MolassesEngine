@@ -35,7 +35,6 @@ public class FlipBook {
         this.pages = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(new File(Config.projectResourcePath + flipBookFileName)))) {
             flipDelay = Long.parseLong(scanner.nextLine());
-            System.out.println(flipDelay);
             flipBookType = FlipBookType.valueOf(scanner.nextLine().toUpperCase());
             while (scanner.hasNextLine()) {
                 pages.add(new Page(scanner.nextLine()));
