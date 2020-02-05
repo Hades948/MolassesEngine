@@ -3,7 +3,6 @@ package com.tylerroyer.molasses;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.awt.Rectangle;
 import java.awt.Stroke;
@@ -16,20 +15,18 @@ public class GameGraphics {
         this.g = g;
     }
 
-    public boolean drawImage(Image image, double x, double y, ImageObserver o) {
+    public boolean drawPage(Page page, double x, double y, ImageObserver o) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        return g.drawImage(image, (int) (x * Resources.scaleX + camX), (int) (y * Resources.scaleY + camY), o);
+        return g.drawImage(page.getImage(), (int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY), o);
     }
 
-    public boolean drawImage(Image image, double x, double y) {
-        double camX = camera == null ? 0 : camera.getOffsetX();
-        double camY = camera == null ? 0 : camera.getOffsetY();
-        return drawImage(image, x + camX, y + camY, Game.getWindow());
+    public boolean drawPage(Page page, double x, double y) {
+        return drawPage(page, x, y, Game.getWindow());
     }
 
     public void setFont(Font font) {
-        g.setFont(font.deriveFont((float) (font.getSize2D() * Resources.scaleX)));
+        g.setFont(font.deriveFont((float) (font.getSize2D() * Game.scaleX)));
     }
 
     public void setStroke(Stroke stroke) {
@@ -42,8 +39,8 @@ public class GameGraphics {
 
     public void setClip(Rectangle r) {
         // TODO Should this be relative to the camera?
-        Rectangle scaledRect = new Rectangle((int) (r.getX() * Resources.scaleX), (int) (r.getY() * Resources.scaleY),
-                (int) (r.getWidth() * Resources.scaleX), (int) (r.getHeight() * Resources.scaleY));
+        Rectangle scaledRect = new Rectangle((int) (r.getX() * Game.scaleX), (int) (r.getY() * Game.scaleY),
+                (int) (r.getWidth() * Game.scaleX), (int) (r.getHeight() * Game.scaleY));
         g.setClip(scaledRect);
     }
 
@@ -58,25 +55,25 @@ public class GameGraphics {
     public void drawString(String text, double x, double y) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        g.drawString(text, (int) (x * Resources.scaleX + camX), (int) (y * Resources.scaleY + camY));
+        g.drawString(text, (int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY));
     }
 
     public void fillRect(double x, double y, double width, double height) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        g.fillRect((int) (x * Resources.scaleX + camX), (int) (y * Resources.scaleY + camY), (int) (width * Resources.scaleX), (int) (height * Resources.scaleY));
+        g.fillRect((int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY), (int) (width * Game.scaleX), (int) (height * Game.scaleY));
     }
 
     public void drawRect(double x, double y, double width, double height) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        g.drawRect((int) (x * Resources.scaleX + camX), (int) (y * Resources.scaleY + camY), (int) (width * Resources.scaleX),
-                (int) (height * Resources.scaleY));
+        g.drawRect((int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY), (int) (width * Game.scaleX),
+                (int) (height * Game.scaleY));
     }
     public void drawLine(double x1, double y1, double x2, double y2) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        g.drawLine((int) (x1 * Resources.scaleX + camX), (int) (y1 * Resources.scaleY + camY), (int) (x2 * Resources.scaleX), (int) (y2 * Resources.scaleY));
+        g.drawLine((int) (x1 * Game.scaleX + camX), (int) (y1 * Game.scaleY + camY), (int) (x2 * Game.scaleX), (int) (y2 * Game.scaleY));
     }
 
     public void setCamera(Camera camera) {

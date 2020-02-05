@@ -22,7 +22,7 @@ class EventTestScreen extends Screen {
     }
 
     @Override
-    public void loadResources() {
+    public void onFocus() {
         Font font = new Font("Helvetica", Font.PLAIN, 12);
         Event toggleEvent = new ToggleEvent(state);
         Color pressed = new Color(128, 0, 0), unpressed = new Color(175, 0, 0), highlighted = new Color(175, 50, 50);

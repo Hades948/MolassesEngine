@@ -39,7 +39,7 @@ public class Window extends JFrame {
 
     @Override
     public int getWidth() {
-        return (int) (super.getWidth() * (1 / Resources.scaleX));
+        return (int) (super.getWidth() / Game.scaleX);
     }
 
     public int getActualScaledWidth() {
@@ -48,7 +48,7 @@ public class Window extends JFrame {
 
     @Override
     public int getHeight() {
-        return (int) (super.getHeight() * (1 / Resources.scaleY));
+        return (int) (super.getHeight() / Game.scaleY);
     }
 
     public int getActualScaledHeight() {

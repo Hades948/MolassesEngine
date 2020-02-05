@@ -19,7 +19,7 @@ public class MouseHandler implements MouseListener {
     public int getX() {
         int absoluteX = (int) MouseInfo.getPointerInfo().getLocation().getX();
         int windowX = Game.getWindow().getX() + 8;
-        return (int) ((absoluteX - windowX) * (1 / Resources.scaleX));
+        return (int) ((absoluteX - windowX) * (1 / Game.scaleX));
     }
 
     /**
@@ -28,7 +28,7 @@ public class MouseHandler implements MouseListener {
     public int getY() {
         int absoluteY = (int) MouseInfo.getPointerInfo().getLocation().getY();
         int windowY = Game.getWindow().getY() + 31;
-        return (int) ((absoluteY - windowY) * (1 / Resources.scaleY));
+        return (int) ((absoluteY - windowY) * (1 / Game.scaleY));
     }
 
     public Point getPoint() {

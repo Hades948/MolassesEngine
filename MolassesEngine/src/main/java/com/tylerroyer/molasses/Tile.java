@@ -2,16 +2,16 @@ package com.tylerroyer.molasses;
 
 public class Tile {
     boolean collisionFlag;
-    String imageName;
+    String flipBookName;
 
     public Tile() {
         collisionFlag = false;
-        imageName = "";
+        flipBookName = "";
     }
 
-    public Tile(boolean collisionFlag, String imageName) {
+    public Tile(boolean collisionFlag, String flipBookName) {
         this.collisionFlag = collisionFlag;
-        this.imageName = imageName;
+        this.flipBookName = flipBookName;
     }
 
     public boolean collisionFlag() {
@@ -22,11 +22,11 @@ public class Tile {
         this.collisionFlag = collisionFlag;
     }
 
-    public String getImageName() {
-        return imageName;
+    public String getFlipBookName() {
+        return flipBookName;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setFlipBookName(String flipBookName) {
+        this.flipBookName = flipBookName;
     }
 }

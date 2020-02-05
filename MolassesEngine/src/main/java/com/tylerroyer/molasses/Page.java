@@ -6,16 +6,41 @@ import java.awt.Dimension;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
+import java.io.*;
 
-public class StaticGraphicalResource implements GraphicalResource {
+import javax.imageio.ImageIO;
+
+public class Page {
     private BufferedImage image;
     private double scaleX = 1.0, scaleY = 1.0;
 
-    public StaticGraphicalResource(BufferedImage image) {
+    // Copy constructor
+    public Page(Page other) {
+        this.image = Util.copyBufferedImage(other.image);
+        this.scaleX = other.scaleX;
+        this.scaleY = other.scaleX;
+    }
+
+    public Page(String name) {
+        try {
+            image = ImageIO.read(Page.class.getResourceAsStream("/res/" + name));
+            scale(Game.scaleX, Game.scaleY);
+        } catch (IOException e) {e.printStackTrace();}
+    }
+
+    // Creates a page for use by the engine.
+    Page(String name, boolean dummy) { // TODO I don't want this dummy variable here :/
+        try {
+            image = ImageIO.read(Page.class.getResourceAsStream(name));
+            scale(Game.scaleX, Game.scaleY);
+        } catch (IOException e) {e.printStackTrace();}
+    }
+
+    public Page(BufferedImage image) {
         this.image = image;
     }
 
-    public BufferedImage getImage() {
+    BufferedImage getImage() {
         return image;
     }
 
@@ -43,7 +68,7 @@ public class StaticGraphicalResource implements GraphicalResource {
         return image.getHeight();
     }
 
-    public void scaleResource(double scaleX, double scaleY) {
+    public void scale(double scaleX, double scaleY) {
         this.scaleX *= scaleX;
         this.scaleY *= scaleY;
 
@@ -55,7 +80,7 @@ public class StaticGraphicalResource implements GraphicalResource {
         this.image = scaledImage;
     }
     
-    public GraphicalResource getDarkerCopy() {
+    public Page getDarkerCopy() {
         BufferedImage res = Util.copyBufferedImage(image);
 
         for (int i = 0; i < res.getWidth(); i++) {
@@ -65,10 +90,10 @@ public class StaticGraphicalResource implements GraphicalResource {
             }
         }
 
-        return new StaticGraphicalResource(res);
+        return new Page(res);
     }
 
-    public GraphicalResource getBrighterCopy() {
+    public Page getBrighterCopy() {
         BufferedImage res = Util.copyBufferedImage(image);
 
         for (int i = 0; i < res.getWidth(); i++) {
@@ -78,6 +103,6 @@ public class StaticGraphicalResource implements GraphicalResource {
             }
         }
 
-        return new StaticGraphicalResource(res);
+        return new Page(res);
     }
 }

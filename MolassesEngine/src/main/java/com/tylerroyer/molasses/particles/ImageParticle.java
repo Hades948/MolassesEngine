@@ -2,21 +2,19 @@ package com.tylerroyer.molasses.particles;
 
 import com.tylerroyer.molasses.*;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Implements Particle using an image.
  */
 class ImageParticle extends Particle {
-    private BufferedImage image;
+    private Page page;
 
-    public ImageParticle(BufferedImage image, int initialX, int initialY, float initialVelX, float initialVelY) {
+    public ImageParticle(Page page, int initialX, int initialY, float initialVelX, float initialVelY) {
         super(initialX, initialY, initialVelX, initialVelY);
-        this.image = image; 
+        this.page = page; 
     }
 
     @Override
     void render(GameGraphics g) {
-        g.drawImage(image, (int) x, (int) y, Game.getWindow());
+        g.drawPage(page, (int) x, (int) y, Game.getWindow());
     }
 }
