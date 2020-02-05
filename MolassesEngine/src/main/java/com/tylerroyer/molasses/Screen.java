@@ -6,10 +6,10 @@ package com.tylerroyer.molasses;
 public abstract class Screen{
     
     /**
-     * Loads all needed resources for this screen.  This is done abstractly for each screen to
+     * Loads all needed resources and variables for this screen.  This is done abstractly for each screen to
      * prevent overstacking the heap.
      */
-    public abstract void loadResources();
+    public abstract void onFocus();
 
     /**
      * Performs all needed updates for this screen.

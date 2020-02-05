@@ -1,8 +1,6 @@
 package com.tylerroyer.molasses;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 
 import com.tylerroyer.molasses.events.Event;
@@ -15,13 +13,13 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 
 public class Button {
-    GraphicalResource pressed, unpressed, highlighted;
+    Page pressed, unpressed, highlighted;
     int x, y;
     ArrayList<Event> events = new ArrayList<>();
     Stroke outline = null;
     Color outlineColor = Color.BLACK;
 
-    public Button(GraphicalResource unpressed, int x, int y, Event event) {
+    public Button(Page unpressed, int x, int y, Event event) {
         this.x = x;
         this.y = y;
         this.events.add(event);
@@ -30,7 +28,7 @@ public class Button {
         this.highlighted = unpressed.getBrighterCopy();
     }
 
-    public Button(GraphicalResource pressed, GraphicalResource unpressed, GraphicalResource highlighted, int x, int y, Event event) {
+    public Button(Page pressed, Page unpressed, Page highlighted, int x, int y, Event event) {
         this.pressed = pressed;
         this.unpressed = unpressed;
         this.highlighted = highlighted;
@@ -67,13 +65,13 @@ public class Button {
         gHighlighted.setColor(textColor);
         gHighlighted.drawString(text, 10, height - 10);
 
-        this.pressed = new StaticGraphicalResource(pressedImage);
-        this.unpressed = new StaticGraphicalResource(unpressedImage);
-        this.highlighted = new StaticGraphicalResource(highlightedImage);
+        this.pressed = new Page(pressedImage);
+        this.unpressed = new Page(unpressedImage);
+        this.highlighted = new Page(highlightedImage);
 
-        this.pressed.scaleResource(Resources.scaleX, Resources.scaleY);
-        this.unpressed.scaleResource(Resources.scaleX, Resources.scaleY);
-        this.highlighted.scaleResource(Resources.scaleX, Resources.scaleY);
+        this.pressed.scale(Game.scaleX, Game.scaleY);
+        this.unpressed.scale(Game.scaleX, Game.scaleY);
+        this.highlighted.scale(Game.scaleX, Game.scaleY);
         
         this.x = x;
         this.y = y;
@@ -108,11 +106,11 @@ public class Button {
 
     public void render(GameGraphics g) {
         if (isDown())
-            g.drawImage(pressed.getImage(), x, y, Game.getWindow());
+            g.drawPage(pressed, x, y, Game.getWindow());
         else if (isMouseHovering())
-            g.drawImage(highlighted.getImage(), x, y, Game.getWindow());
+            g.drawPage(highlighted, x, y, Game.getWindow());
         else
-            g.drawImage(unpressed.getImage(), x, y, Game.getWindow());
+            g.drawPage(unpressed, x, y, Game.getWindow());
         
         // Draw outline
         g.setColor(outlineColor);
