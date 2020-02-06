@@ -39,7 +39,9 @@ public class GameGraphics {
     }
 
     public void setClip(Rectangle r) {
-        Rectangle adjustedRect = new Rectangle((int) (r.getX() + camera.getOffsetX()), (int) (r.getY()+ camera.getOffsetY()), (int) r.getWidth(), (int) r.getHeight());
+        double camX = camera == null ? 0 : camera.getOffsetX();
+        double camY = camera == null ? 0 : camera.getOffsetY();
+        Rectangle adjustedRect = new Rectangle((int) (r.getX() + camX), (int) (r.getY() + camY), (int) r.getWidth(), (int) r.getHeight());
         g.setClip(adjustedRect);
     }
 
