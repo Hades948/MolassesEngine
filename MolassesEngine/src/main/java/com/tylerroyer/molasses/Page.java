@@ -58,16 +58,22 @@ public class Page {
         return image.getHeight() / scaleY;
     }
 
-    public Dimension getActualScaledSize() {
-        return new Dimension((int) getActualScaledWidth(), (int) getActualScaledHeight());
+    public Dimension getActualScaledSize(boolean includeScreenResolutionScaling) {
+        return new Dimension((int) getActualScaledWidth(includeScreenResolutionScaling), (int) getActualScaledHeight(includeScreenResolutionScaling));
     }
 
-    public double getActualScaledWidth() {
-        return image.getWidth();
+    public double getActualScaledWidth(boolean includeScreenResolutionScaling) {
+        if (includeScreenResolutionScaling)
+            return image.getWidth();
+        else
+            return image.getWidth() / Game.scaleX;
     }
 
-    public double getActualScaledHeight() {
-        return image.getHeight();
+    public double getActualScaledHeight(boolean includeScreenResolutionScaling) {
+        if (includeScreenResolutionScaling)
+            return image.getHeight();
+        else
+            return image.getHeight() / Game.scaleY;
     }
 
     public void scale(double scaleX, double scaleY) {

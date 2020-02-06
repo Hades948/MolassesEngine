@@ -85,10 +85,10 @@ public class Button {
 
     private boolean isMouseHovering() {
         Page currentPage = unpressed.getCurrentPage();
-        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + currentPage.getWidth());
-        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + currentPage.getHeight());
+        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + currentPage.getActualScaledWidth(false));
+        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + currentPage.getActualScaledHeight(false));
         Point mouseOffset = new Point(mouseOffsetX, mouseOffsetY);
-        Rectangle scaledBounds = new Rectangle((int) currentPage.getWidth(), (int) currentPage.getHeight());
+        Rectangle scaledBounds = new Rectangle((int) currentPage.getActualScaledWidth(false), (int) currentPage.getActualScaledHeight(false));
         return scaledBounds.contains(mouseOffset);
     }
 
@@ -117,7 +117,7 @@ public class Button {
         g.setColor(outlineColor);
         if (outline != null) {
             g.setStroke(outline);
-            g.drawRect(x, y, unpressed.getCurrentPage().getWidth(), unpressed.getCurrentPage().getHeight());
+            g.drawRect(x, y, unpressed.getCurrentPage().getActualScaledWidth(false), unpressed.getCurrentPage().getActualScaledHeight(false));
         }
     }
 
