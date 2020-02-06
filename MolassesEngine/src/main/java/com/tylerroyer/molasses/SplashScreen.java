@@ -33,6 +33,6 @@ class SplashScreen extends Screen {
 
         int x = (int) (Game.getLooper().getWidth() / 2 - splash.getWidth() / 2);
         int y = (int) (Game.getLooper().getHeight() / 2 - splash.getHeight() / 2);
-        g.drawPage(splash, (int) (x * (1 / Game.scaleX)), (int) (y * (1 / Game.scaleY)), Game.getWindow());
+        g.drawPage(splash, x, y);
     }
 }

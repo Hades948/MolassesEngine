@@ -31,27 +31,9 @@ public class Window extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int windowX, windowY;
 
-        windowX = (int) (screenSize.getWidth() / 2 - getActualScaledWidth() / 2);
-        windowY = (int) (screenSize.getHeight() / 2 - getActualScaledHeight() / 2);
+        windowX = (int) (screenSize.getWidth() / 2 - getWidth() / 2);
+        windowY = (int) (screenSize.getHeight() / 2 - getHeight() / 2);
 
         setLocation(new Point(windowX, windowY));
-    }
-
-    @Override
-    public int getWidth() {
-        return (int) (super.getWidth() / Game.scaleX);
-    }
-
-    public int getActualScaledWidth() {
-        return super.getWidth();
-    }
-
-    @Override
-    public int getHeight() {
-        return (int) (super.getHeight() / Game.scaleY);
-    }
-
-    public int getActualScaledHeight() {
-        return super.getHeight();
     }
 }

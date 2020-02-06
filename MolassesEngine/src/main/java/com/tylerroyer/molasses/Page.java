@@ -24,7 +24,6 @@ public class Page {
     public Page(String name) {
         try {
             image = ImageIO.read(Page.class.getResourceAsStream("/res/" + name));
-            scale(Game.scaleX, Game.scaleY);
         } catch (IOException e) {e.printStackTrace();}
     }
 
@@ -32,7 +31,6 @@ public class Page {
     Page(String name, boolean dummy) { // TODO I don't want this dummy variable here :/
         try {
             image = ImageIO.read(Page.class.getResourceAsStream(name));
-            scale(Game.scaleX, Game.scaleY);
         } catch (IOException e) {e.printStackTrace();}
     }
 
@@ -58,22 +56,16 @@ public class Page {
         return image.getHeight() / scaleY;
     }
 
-    public Dimension getActualScaledSize(boolean includeScreenResolutionScaling) {
-        return new Dimension((int) getActualScaledWidth(includeScreenResolutionScaling), (int) getActualScaledHeight(includeScreenResolutionScaling));
+    public Dimension getActualScaledSize() {
+        return new Dimension((int) getActualScaledWidth(), (int) getActualScaledHeight());
     }
 
-    public double getActualScaledWidth(boolean includeScreenResolutionScaling) {
-        if (includeScreenResolutionScaling)
-            return image.getWidth();
-        else
-            return image.getWidth() / Game.scaleX;
+    public double getActualScaledWidth() {
+        return image.getWidth();
     }
 
-    public double getActualScaledHeight(boolean includeScreenResolutionScaling) {
-        if (includeScreenResolutionScaling)
-            return image.getHeight();
-        else
-            return image.getHeight() / Game.scaleY;
+    public double getActualScaledHeight() {
+        return image.getHeight();
     }
 
     public void scale(double scaleX, double scaleY) {

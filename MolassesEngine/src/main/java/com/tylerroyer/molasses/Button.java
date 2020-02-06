@@ -68,10 +68,6 @@ public class Button {
         this.pressed = new FlipBook(0, new Page(pressedImage, 1.0, 1.0));
         this.unpressed = new FlipBook(0, new Page(unpressedImage, 1.0, 1.0));
         this.highlighted = new FlipBook(0, new Page(highlightedImage, 1.0, 1.0));
-
-        this.pressed.scale(Game.scaleX, Game.scaleY);
-        this.unpressed.scale(Game.scaleX, Game.scaleY);
-        this.highlighted.scale(Game.scaleX, Game.scaleY);
         
         this.x = x;
         this.y = y;
@@ -85,10 +81,10 @@ public class Button {
 
     private boolean isMouseHovering() {
         Page currentPage = unpressed.getCurrentPage();
-        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + currentPage.getActualScaledWidth(false));
-        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + currentPage.getActualScaledHeight(false));
+        int mouseOffsetX = (int) (x - Game.getMouseHandler().getX() + currentPage.getActualScaledWidth());
+        int mouseOffsetY = (int) (y - Game.getMouseHandler().getY() + currentPage.getActualScaledHeight());
         Point mouseOffset = new Point(mouseOffsetX, mouseOffsetY);
-        Rectangle scaledBounds = new Rectangle((int) currentPage.getActualScaledWidth(false), (int) currentPage.getActualScaledHeight(false));
+        Rectangle scaledBounds = new Rectangle((int) currentPage.getActualScaledWidth(), (int) currentPage.getActualScaledHeight());
         return scaledBounds.contains(mouseOffset);
     }
 
@@ -117,7 +113,7 @@ public class Button {
         g.setColor(outlineColor);
         if (outline != null) {
             g.setStroke(outline);
-            g.drawRect(x, y, unpressed.getCurrentPage().getActualScaledWidth(false), unpressed.getCurrentPage().getActualScaledHeight(false));
+            g.drawRect(x, y, unpressed.getCurrentPage().getActualScaledWidth(), unpressed.getCurrentPage().getActualScaledHeight());
         }
     }
 

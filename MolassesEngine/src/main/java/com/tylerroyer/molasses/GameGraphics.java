@@ -18,7 +18,7 @@ public class GameGraphics {
     public boolean drawPage(Page page, double x, double y, ImageObserver o) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        boolean result =  g.drawImage(page.getImage(), (int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY), o);
+        boolean result =  g.drawImage(page.getImage(), (int) (x + camX), (int) (y + camY), o);
         return result;
     }
 
@@ -27,7 +27,7 @@ public class GameGraphics {
     }
 
     public void setFont(Font font) {
-        g.setFont(font.deriveFont((float) (font.getSize2D() * Game.scaleX)));
+        g.setFont(font.deriveFont(font.getSize2D()));
     }
 
     public void setStroke(Stroke stroke) {
@@ -39,10 +39,8 @@ public class GameGraphics {
     }
 
     public void setClip(Rectangle r) {
-        // TODO Should this be relative to the camera?
-        Rectangle scaledRect = new Rectangle((int) (r.getX() * Game.scaleX), (int) (r.getY() * Game.scaleY),
-                (int) (r.getWidth() * Game.scaleX), (int) (r.getHeight() * Game.scaleY));
-        g.setClip(scaledRect);
+        Rectangle adjustedRect = new Rectangle((int) (r.getX() + camera.getOffsetX()), (int) (r.getY()+ camera.getOffsetY()), (int) r.getWidth(), (int) r.getHeight());
+        g.setClip(adjustedRect);
     }
 
     public void clearClip() {
@@ -56,25 +54,24 @@ public class GameGraphics {
     public void drawString(String text, double x, double y) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        g.drawString(text, (int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY));
+        g.drawString(text, (int) (x + camX), (int) (y + camY));
     }
 
     public void fillRect(double x, double y, double width, double height) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        g.fillRect((int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY), (int) (width * Game.scaleX), (int) (height * Game.scaleY));
+        g.fillRect((int) (x + camX), (int) (y + camY), (int) width, (int) height);
     }
 
     public void drawRect(double x, double y, double width, double height) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        g.drawRect((int) (x * Game.scaleX + camX), (int) (y * Game.scaleY + camY), (int) (width * Game.scaleX),
-                (int) (height * Game.scaleY));
+        g.drawRect((int) (x + camX), (int) (y + camY), (int) width, (int) height);
     }
     public void drawLine(double x1, double y1, double x2, double y2) {
         double camX = camera == null ? 0 : camera.getOffsetX();
         double camY = camera == null ? 0 : camera.getOffsetY();
-        g.drawLine((int) (x1 * Game.scaleX + camX), (int) (y1 * Game.scaleY + camY), (int) (x2 * Game.scaleX), (int) (y2 * Game.scaleY));
+        g.drawLine((int) (x1 + camX), (int) (y1 + camY), (int) x2, (int) y2);
     }
 
     public void setCamera(Camera camera) {

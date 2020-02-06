@@ -12,9 +12,9 @@ public class Looper extends Canvas {
     private long frameStartTime;
     private final float TARGET_FPS = 60.0f;
 
-    Looper(int width, int height) {
+    Looper() {
         setBackground(new Color (40, 10, 40));
-        setSize(width, height);
+        setSize(Config.windowWidth, Config.windowHeight);
 
         addMouseListener(Game.getMouseHandler());
         addKeyListener(Game.getKeyboardHandler());
