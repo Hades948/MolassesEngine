@@ -25,15 +25,14 @@ class EventTestScreen extends Screen {
     public void onFocus() {
         Font font = new Font("Helvetica", Font.PLAIN, 12);
         Event toggleEvent = new ToggleEvent(state);
-        Color pressed = new Color(128, 0, 0), unpressed = new Color(175, 0, 0), highlighted = new Color(175, 50, 50);
-        toggleButton = new Button("Toggle", font, pressed, unpressed, highlighted, Color.WHITE, 75, 50, 20, 20, toggleEvent);
+        toggleButton = new Button("Toggle", font, new Color(128, 0, 0), Color.WHITE, 75, 50, 20, 20, toggleEvent);
         
         Event decEvent = new DecrementIntegerEvent(value, 5, -50);
         Event incEvent = new IncrementIntegerEvent(value, 5, 53);
-        decButton = new Button("-5", font, pressed, unpressed, highlighted, Color.WHITE, 40, 40, 20, 90, decEvent);
-        incButton = new Button("+5", font, pressed, unpressed, highlighted, Color.WHITE, 40, 40, 110, 90, incEvent);
+        decButton = new Button("-5", font, new Color(128, 0, 0), Color.WHITE, 40, 40, 20, 90, decEvent);
+        incButton = new Button("+5", font, new Color(128, 0, 0), Color.WHITE, 40, 40, 110, 90, incEvent);
         
-        mainScreenButton = new Button("Return to main screen", font, pressed, unpressed, highlighted, Color.WHITE,
+        mainScreenButton = new Button("Return to main screen", font, new Color(128, 0, 0), Color.WHITE,
               150, 50, 800, 20, new ChangeScreenEvent(new MainScreen()));
     }
 

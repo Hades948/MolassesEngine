@@ -13,8 +13,7 @@ import java.util.Map.Entry;
  */
 public class KeyboardHandler implements KeyListener {
     private HashSet<Integer> downKeys;
-    private HashMap<Integer, Event> downEvents = new HashMap<>();
-    private HashMap<Integer, Event> typedEvents = new HashMap<>();
+    private HashMap<Integer, Event> events = new HashMap<>();
 
     KeyboardHandler() {
         downKeys = new HashSet<>();
@@ -30,38 +29,27 @@ public class KeyboardHandler implements KeyListener {
     
     @Override
     public void keyPressed(KeyEvent e) {
-        for (Entry<Integer, Event> entry : downEvents.entrySet()) {
-            if (entry.getKey() == e.getKeyCode()) {
-                entry.getValue().doAction();
-            }
-        }
         downKeys.add(e.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        downKeys.remove(e.getKeyCode());
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        for (Entry<Integer, Event> entry : typedEvents.entrySet()) {
+        for (Entry<Integer, Event> entry : events.entrySet()) {
             if (entry.getKey() == e.getKeyCode()) {
                 entry.getValue().doAction();
             }
         }
-    }    
-
-    public void addDownEvent(int keyCode, Event e) {
-        downEvents.put(keyCode, e); // TODO Can I get rid of the weird type delay?
+        downKeys.remove(e.getKeyCode());
     }
 
-    public void addTypedEvent(int keyCode, Event e) {
-        typedEvents.put(keyCode, e);// TODO This doesn't work.
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    public void addEvent(int keyCode, Event e) {
+        events.put(keyCode, e);
     }
 
     public void clearEvents() {
-        downEvents.clear();
-        typedEvents.clear();
+        events.clear();
     }
 }

@@ -22,10 +22,9 @@ public class MainScreen extends Screen {
     public void onFocus() {
         Font font = new Font("Helvetica", Font.PLAIN, 12);
         Event changeScreenEvent = new ChangeScreenEvent(eventTestScreen);
-        eventTestButton = new Button("Test events", font, new Color(128, 0, 0), new Color(175, 0, 0), new Color(175, 50, 50), Color.WHITE,
-              150, 50, 25, 10, changeScreenEvent);
+        eventTestButton = new Button("Test events", font, new Color(128, 0, 0), Color.WHITE, 150, 50, 25, 10, changeScreenEvent);
 
-        Game.getKeyboardHandler().addTypedEvent(KeyEvent.VK_W, new LoggerEvent("W key down."));
+        Game.getKeyboardHandler().addEvent(KeyEvent.VK_W, new LoggerEvent("W key pressed"));
     }
 
     @Override
