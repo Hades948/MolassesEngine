@@ -2,8 +2,10 @@ package com.tylerroyer.enginetesting;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 import com.tylerroyer.molasses.Button;
+import com.tylerroyer.molasses.Game;
 import com.tylerroyer.molasses.GameGraphics;
 import com.tylerroyer.molasses.Screen;
 import com.tylerroyer.molasses.events.*;
@@ -22,6 +24,8 @@ public class MainScreen extends Screen {
         Event changeScreenEvent = new ChangeScreenEvent(eventTestScreen);
         eventTestButton = new Button("Test events", font, new Color(128, 0, 0), new Color(175, 0, 0), new Color(175, 50, 50), Color.WHITE,
               150, 50, 25, 10, changeScreenEvent);
+
+        Game.getKeyboardHandler().addTypedEvent(KeyEvent.VK_W, new LoggerEvent("W key down."));
     }
 
     @Override

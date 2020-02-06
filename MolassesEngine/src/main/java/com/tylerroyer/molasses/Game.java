@@ -57,6 +57,7 @@ public class Game {
         return currentScreen;
     }
     public static void setCurrentScreen(Screen screen) {
+        keyboardHandler.clearEvents();
         currentScreen = screen;
         screen.onFocus();
     }
