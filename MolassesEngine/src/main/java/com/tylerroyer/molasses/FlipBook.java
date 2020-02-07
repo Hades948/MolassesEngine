@@ -82,7 +82,7 @@ public class FlipBook {
         if (events != null && !events.isEmpty()) {
             if (pageIndex == pages.size() - 1) {
                 for (Event e : events) {
-                    e.doAction();
+                    e.trigger();
                 }
             }
         }

@@ -1,17 +1,14 @@
 package com.tylerroyer.enginetesting;
 
 import com.tylerroyer.molasses.*;
-import com.tylerroyer.molasses.events.ChangeScreenEvent;
-import com.tylerroyer.molasses.events.DecrementIntegerEvent;
-import com.tylerroyer.molasses.events.Event;
-import com.tylerroyer.molasses.events.IncrementIntegerEvent;
-import com.tylerroyer.molasses.events.ToggleEvent;
+import com.tylerroyer.molasses.events.*;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;
 import org.apache.commons.lang3.mutable.MutableInt;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 class EventTestScreen extends Screen {
     Button toggleButton, decButton, incButton, mainScreenButton;
@@ -24,7 +21,10 @@ class EventTestScreen extends Screen {
     @Override
     public void onFocus() {
         Font font = new Font("Helvetica", Font.PLAIN, 12);
+        
+        MutableBoolean toggleEnabled = new MutableBoolean(false);
         Event toggleEvent = new ToggleEvent(state);
+        toggleEvent.addCondition(toggleEnabled);
         toggleButton = new Button("Toggle", font, new Color(128, 0, 0), Color.WHITE, 75, 50, 20, 20, toggleEvent);
         
         Event decEvent = new DecrementIntegerEvent(value, 5, -50);
@@ -34,6 +34,8 @@ class EventTestScreen extends Screen {
         
         mainScreenButton = new Button("Return to main screen", font, new Color(128, 0, 0), Color.WHITE,
               150, 50, 800, 20, new ChangeScreenEvent(new MainScreen()));
+        
+        Game.getKeyboardHandler().addEvent(KeyEvent.VK_T, new ToggleEvent(toggleEnabled));
     }
 
     @Override

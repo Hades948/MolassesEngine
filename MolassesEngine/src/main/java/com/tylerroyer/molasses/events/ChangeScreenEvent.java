@@ -2,7 +2,7 @@ package com.tylerroyer.molasses.events;
 
 import com.tylerroyer.molasses.*;
 
-public class ChangeScreenEvent implements Event {
+public class ChangeScreenEvent extends Event {
     private Screen newScreen;
 
     public ChangeScreenEvent(Screen newScreen) {
@@ -10,7 +10,7 @@ public class ChangeScreenEvent implements Event {
     }
 
     @Override
-    public void doAction() {
+    protected void performAction() {
         Game.setCurrentScreen(newScreen);
     }
 }

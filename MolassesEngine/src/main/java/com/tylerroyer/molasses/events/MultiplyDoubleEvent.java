@@ -2,7 +2,7 @@ package com.tylerroyer.molasses.events;
 
 import org.apache.commons.lang3.mutable.MutableDouble;
 
-public class MultiplyDoubleEvent implements Event {
+public class MultiplyDoubleEvent extends Event {
     private MutableDouble value;
     private double factor;
 
@@ -12,7 +12,7 @@ public class MultiplyDoubleEvent implements Event {
     }
 
     @Override
-    public void doAction() {
+    protected void performAction() {
         value.setValue(value.getValue() * factor);
     }
 }

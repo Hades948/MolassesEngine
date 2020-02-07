@@ -2,7 +2,7 @@ package com.tylerroyer.molasses.events;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
-public class ToggleOffEvent implements Event {
+public class ToggleOffEvent extends Event {
     private MutableBoolean state;
 
     public ToggleOffEvent(MutableBoolean state) {
@@ -10,7 +10,7 @@ public class ToggleOffEvent implements Event {
     }
 
     @Override
-    public void doAction() {
+    protected void performAction() {
         state.setValue(false);
     }
 }

@@ -126,7 +126,7 @@ public class Button {
 
         if (isMouseHovering() && !Game.getMouseHandler().isDown() && wasDown) {
             for (Event e : events) {
-                e.doAction();
+                e.trigger();
             }
         }
 

@@ -2,10 +2,8 @@ package com.tylerroyer.enginetesting;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyEvent;
 
 import com.tylerroyer.molasses.Button;
-import com.tylerroyer.molasses.Game;
 import com.tylerroyer.molasses.GameGraphics;
 import com.tylerroyer.molasses.Screen;
 import com.tylerroyer.molasses.events.*;

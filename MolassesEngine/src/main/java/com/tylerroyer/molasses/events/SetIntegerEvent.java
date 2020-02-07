@@ -2,7 +2,7 @@ package com.tylerroyer.molasses.events;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 
-public class SetIntegerEvent implements Event {
+public class SetIntegerEvent extends Event {
     private MutableInt value;
     private int setTo;
 
@@ -12,7 +12,7 @@ public class SetIntegerEvent implements Event {
     }
 
     @Override
-    public void doAction() {
+    protected void performAction() {
         value.setValue(setTo);
     }
 }

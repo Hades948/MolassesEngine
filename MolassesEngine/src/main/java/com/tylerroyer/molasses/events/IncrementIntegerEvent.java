@@ -2,7 +2,7 @@ package com.tylerroyer.molasses.events;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 
-public class IncrementIntegerEvent implements Event {
+public class IncrementIntegerEvent extends Event {
     private MutableInt value;
     private int step;
     private int max;
@@ -20,7 +20,7 @@ public class IncrementIntegerEvent implements Event {
     }
 
     @Override
-    public void doAction() {
+    protected void performAction() {
         if (max - step < value.getValue()) {
             value.setValue(max);
             return;

@@ -36,7 +36,7 @@ public class KeyboardHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         for (Entry<Integer, Event> entry : events.entrySet()) {
             if (entry.getKey() == e.getKeyCode()) {
-                entry.getValue().doAction();
+                entry.getValue().trigger();
             }
         }
         downKeys.remove(e.getKeyCode());

@@ -1,6 +1,6 @@
 package com.tylerroyer.molasses.events;
 
-public class LoggerEvent implements Event {
+public class LoggerEvent extends Event {
     private String msg;
 
     public LoggerEvent(String msg) {
@@ -8,7 +8,7 @@ public class LoggerEvent implements Event {
     }
 
     @Override
-    public void doAction() {
+    protected void performAction() {
         System.out.println("LoggerEvent activated: " + msg);
     }
 }

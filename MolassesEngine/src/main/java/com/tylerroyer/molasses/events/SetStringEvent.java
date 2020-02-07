@@ -1,6 +1,6 @@
 package com.tylerroyer.molasses.events;
 
-public class SetStringEvent implements Event {
+public class SetStringEvent extends Event {
     private StringBuffer value;
     private String setTo;
 
@@ -10,7 +10,7 @@ public class SetStringEvent implements Event {
     }
 
     @Override
-    public void doAction() {
+    protected void performAction() {
         value.delete(0, value.length());
         value.insert(0, setTo);
     }

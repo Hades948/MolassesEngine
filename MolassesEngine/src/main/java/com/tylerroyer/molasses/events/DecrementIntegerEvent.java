@@ -2,7 +2,7 @@ package com.tylerroyer.molasses.events;
 
 import org.apache.commons.lang3.mutable.MutableInt;
 
-public class DecrementIntegerEvent implements Event {
+public class DecrementIntegerEvent extends Event {
     private MutableInt value;
     private int step;
     private int min;
@@ -20,7 +20,7 @@ public class DecrementIntegerEvent implements Event {
     }
 
     @Override
-    public void doAction() {
+    protected void performAction() {
         if (min + step > value.getValue()) {
             value.setValue(min);
             return;
