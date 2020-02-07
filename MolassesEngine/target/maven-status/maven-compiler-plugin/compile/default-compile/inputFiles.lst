@@ -1,4 +1,5 @@
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\ToggleEvent.java
+c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\AudioHandler.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\GameGraphics.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\SplashScreen.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\Event.java
@@ -13,6 +14,7 @@ c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\ToggleOffEvent.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\particles\ImageParticle.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\ToggleOnEvent.java
+c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\PauseMusicEvent.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\Looper.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\FlipBook.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\MouseHandler.java
@@ -22,17 +24,21 @@ c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\ChangeScreenEvent.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\Tile.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\particles\ParticleEmitter.java
+c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\PlaySoundEffectEvent.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\Page.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\particles\ColorParticle.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\Camera.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\Timer.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\SetIntegerEvent.java
+c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\enginetesting\AudioTestScreen.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\particles\ImageParticleEmitter.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\GameObject.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\particles\Particle.java
+c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\PlayMusicEvent.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\enginetesting\Driver.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\enginetesting\EventTestScreen.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\Config.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\Util.java
+c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\events\ResumeMusicEvent.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\particles\ColorParticleEmitter.java
 c:\Users\Tyler\Documents\code_n_stuff\Molasses\MolassesEngine\MolassesEngine\src\main\java\com\tylerroyer\molasses\Game.java

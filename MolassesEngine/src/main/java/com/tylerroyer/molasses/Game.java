@@ -7,8 +7,10 @@ import javax.swing.JOptionPane;
  * Static classs to hold all important instances for the game.
  */
 public class Game {
-    public static void start() {keyboardHandler = new KeyboardHandler();
+    public static void start() {
         mouseHandler = new MouseHandler();
+        keyboardHandler = new KeyboardHandler();
+        audioHandler = new AudioHandler();
         looper = new Looper();
         window = new Window(Config.windowTitle);
         setCurrentScreen(new SplashScreen());
@@ -47,6 +49,14 @@ public class Game {
     private static KeyboardHandler keyboardHandler;
     public static KeyboardHandler getKeyboardHandler() {
         return keyboardHandler;
+    }
+
+    /**
+     * The game's audio handler.
+     */
+    private static AudioHandler audioHandler;
+    public static AudioHandler getAudioHandler() {
+        return audioHandler;
     }
 
     /**
