@@ -1,5 +1,6 @@
 package com.tylerroyer.molasses;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class AudioHandler {
     public void loadMusic(String name) {
         try {
             Clip clip;
-            InputStream is = AudioHandler.class.getResourceAsStream("/res/" + name);
+            InputStream is = new BufferedInputStream(AudioHandler.class.getResourceAsStream("/res/" + name));
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(is);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
@@ -31,7 +32,7 @@ public class AudioHandler {
     public void loadSoundEffect(String name) {
         try {
             Clip clip;
-            InputStream is = AudioHandler.class.getResourceAsStream("/res/" + name);
+            InputStream is = new BufferedInputStream(AudioHandler.class.getResourceAsStream("/res/" + name));
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(is);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
