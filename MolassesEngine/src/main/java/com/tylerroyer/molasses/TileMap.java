@@ -15,6 +15,7 @@ public class TileMap implements GameObject {
     private double devScale;
     private ArrayList<ArrayList<Tile>> tiles = new ArrayList<>();
     private ArrayList<HashMap<String, FlipBook>> tileMappings = new ArrayList<>();
+    private HashMap<String, Boolean> solidityMappings = new HashMap<>();
     private double x, y;
     private List<Double> zoomLevels = new ArrayList<>();
     private MutableInt zoomLevelIndex = new MutableInt(0);
@@ -25,15 +26,22 @@ public class TileMap implements GameObject {
         this.y = y;
 
         try (Scanner scanner = new Scanner(new FileInputStream(new File(Config.projectResourcePath + tileMapResourceName)))) {
-            String flipBookName = scanner.nextLine();
+            String flipBookName = scanner.next();
+            boolean isSolid = scanner.nextBoolean();
+            scanner.nextLine();
             HashMap<String, FlipBook> map = new HashMap<>();
             while (!flipBookName.equals(";")) {
                 FlipBook fb = new FlipBook(flipBookName);
                 devScale = 128 / fb.getCurrentPage().getWidth();
                 fb.scale(devScale, devScale);
                 map.put(flipBookName, fb);
+                solidityMappings.put(flipBookName, isSolid);
 
-                flipBookName = scanner.nextLine();
+                flipBookName = scanner.next();
+                if (!flipBookName.equals(";")) {
+                    isSolid = scanner.nextBoolean();
+                }
+                scanner.nextLine();
             }
             tileMappings.add(map);
             int width = Integer.parseInt(scanner.nextLine());
@@ -54,6 +62,8 @@ public class TileMap implements GameObject {
                 int tileY = scanner.nextInt();
 
                 setTile(tileX, tileY, name);
+
+                getTile(tileX, tileY).setIsSolid(solidityMappings.get(name));
             }
         } catch (FileNotFoundException e) {e.printStackTrace();}
     }
@@ -166,7 +176,14 @@ public class TileMap implements GameObject {
             for (int j = 0; j < getHeight(); j++) {
                 Page currentTilePage = tileMappings.get(getZoomLevelIndex()).get(getTile(i, j).getFlipBookName()).getCurrentPage();
                 g.drawPage(currentTilePage, x + getTileSize() * i, y + getTileSize() * j);
+                if (getTile(i, j).isSolid())
+                    g.drawString("S", x + getTileSize() * i, y + getTileSize() * j);
             }
         }
+    }
+
+    // TODO This is only useful for TME.  Ideally, it wouldn't be necessary.
+    public boolean isTileSolid(String name) {
+        return solidityMappings.get(name);
     }
 }

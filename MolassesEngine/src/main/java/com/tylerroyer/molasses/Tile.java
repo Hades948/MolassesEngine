@@ -1,25 +1,25 @@
 package com.tylerroyer.molasses;
 
 public class Tile {
-    boolean collisionFlag;
-    String flipBookName;
+    private boolean isSolid;
+    private String flipBookName;
 
     public Tile() {
-        collisionFlag = false;
+        isSolid = false;
         flipBookName = "";
     }
 
-    public Tile(boolean collisionFlag, String flipBookName) {
-        this.collisionFlag = collisionFlag;
+    public Tile(boolean isSolid, String flipBookName) {
+        this.isSolid = isSolid;
         this.flipBookName = flipBookName;
     }
 
-    public boolean collisionFlag() {
-        return collisionFlag;
+    public boolean isSolid() {
+        return isSolid;
     }
 
-    public void setCollisionFlag(boolean collisionFlag) {
-        this.collisionFlag = collisionFlag;
+    public void setIsSolid(boolean isSolid) {
+        this.isSolid = isSolid;
     }
 
     public String getFlipBookName() {
