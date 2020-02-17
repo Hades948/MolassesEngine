@@ -65,6 +65,8 @@ public class TileMap implements GameObject {
 
                 getTile(tileX, tileY).setIsSolid(solidityMappings.get(name));
             }
+
+            zoomLevels.add(1.0);
         } catch (FileNotFoundException e) {e.printStackTrace();}
     }
 
@@ -125,6 +127,8 @@ public class TileMap implements GameObject {
     }
 
     public Tile getTile(int tileX, int tileY) {
+        if (tileX < 0 || tileY < 0 || tileX >= getWidth() || tileY >= getHeight()) return null;
+        
         return tiles.get(tileY).get(tileX);
     }
 
@@ -176,8 +180,6 @@ public class TileMap implements GameObject {
             for (int j = 0; j < getHeight(); j++) {
                 Page currentTilePage = tileMappings.get(getZoomLevelIndex()).get(getTile(i, j).getFlipBookName()).getCurrentPage();
                 g.drawPage(currentTilePage, x + getTileSize() * i, y + getTileSize() * j);
-                if (getTile(i, j).isSolid())
-                    g.drawString("S", x + getTileSize() * i, y + getTileSize() * j);
             }
         }
     }

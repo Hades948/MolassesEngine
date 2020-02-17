@@ -13,7 +13,7 @@ import java.util.Map.Entry;
  */
 public class KeyboardHandler implements KeyListener {
     private HashSet<Integer> downKeys;
-    private HashMap<Integer, Event> events = new HashMap<>();
+    private HashMap<Event, Integer> events = new HashMap<>();
 
     KeyboardHandler() {
         downKeys = new HashSet<>();
@@ -34,9 +34,9 @@ public class KeyboardHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        for (Entry<Integer, Event> entry : events.entrySet()) {
-            if (entry.getKey() == e.getKeyCode()) {
-                entry.getValue().trigger();
+        for (Entry<Event, Integer> entry : events.entrySet()) {
+            if (entry.getValue() == e.getKeyCode()) {
+                entry.getKey().trigger();
             }
         }
         downKeys.remove(e.getKeyCode());
@@ -46,7 +46,7 @@ public class KeyboardHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {}
 
     public void addEvent(int keyCode, Event e) {
-        events.put(keyCode, e);
+        events.put(e, keyCode);
     }
 
     public void clearEvents() {
