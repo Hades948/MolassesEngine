@@ -7,32 +7,34 @@ import java.awt.Color;
  */
 class SplashScreen extends Screen {
     private int counter = 0;
-    private Page splash;
+    //private Page splash;
 
-    public SplashScreen() {}
+    public SplashScreen() {
+    }
 
     @Override
     public void onFocus() {
-        splash = new Page("engine_splash.png", false);
+        //splash = new Page("engine_splash.png", false);
     }
 
     @Override
     public void update() {
         counter++;
 
-        if (counter >= 2*60) {
+        if (counter >= 0) {
             Game.setCurrentScreen(Config.firstScreen);
         }
     }
 
     @Override
     public void render(GameGraphics g) {
+        return;/*
         if (splash == null) return;
 
         Game.setBackgroundColor(new Color(50, 25, 0));
 
         int x = (int) (Game.getLooper().getWidth() / 2 - splash.getWidth() / 2);
         int y = (int) (Game.getLooper().getHeight() / 2 - splash.getHeight() / 2);
-        g.drawPage(splash, x, y);
+        g.drawPage(splash, x, y);*/
     }
 }

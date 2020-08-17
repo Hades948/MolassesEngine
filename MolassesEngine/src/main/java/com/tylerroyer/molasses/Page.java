@@ -23,7 +23,7 @@ public class Page {
 
     public Page(String name) {
         try {
-            image = ImageIO.read(Page.class.getResourceAsStream("/res/" + name));
+            image = ImageIO.read(Page.class.getResourceAsStream(Config.pageResourcePath + name));
         } catch (IOException e) {e.printStackTrace();}
     }
 
