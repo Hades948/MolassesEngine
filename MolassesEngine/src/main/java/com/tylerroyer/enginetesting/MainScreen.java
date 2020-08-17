@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import com.tylerroyer.molasses.Button;
+import com.tylerroyer.molasses.FlipBook;
 import com.tylerroyer.molasses.GameGraphics;
 import com.tylerroyer.molasses.Screen;
 import com.tylerroyer.molasses.events.*;
@@ -24,7 +25,8 @@ public class MainScreen extends Screen {
     @Override
     public void onFocus() {
         Font font = new Font("Helvetica", Font.PLAIN, 12);
-        eventTestButton = new Button("Test Events", font, new Color(128, 0, 0), Color.WHITE, 150, 50, 25, 10, new ChangeScreenEvent(eventTestScreen));
+        eventTestButton = new Button(new FlipBook("test.mfb"), 25, 10, new ChangeScreenEvent(eventTestScreen));
+        //eventTestButton = new Button("Test Events", font, new Color(128, 0, 0), Color.WHITE, 150, 50, 25, 10, new ChangeScreenEvent(eventTestScreen));
         audioTestButton = new Button("Test Audio", font, new Color(128, 0, 0), Color.WHITE, 150, 50, 200, 10, new ChangeScreenEvent(audioTestScreen));
     }
 

@@ -1,8 +1,5 @@
 package com.tylerroyer.molasses;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +22,7 @@ public class TileMap implements GameObject {
         this.x = x;
         this.y = y;
 
-        try (Scanner scanner = new Scanner(new FileInputStream(new File(Config.projectResourcePath + tileMapResourceName)))) {
+        try (Scanner scanner = new Scanner(TileMap.class.getResourceAsStream(Config.pageResourcePath + tileMapResourceName))) {
             String flipBookName = scanner.next();
             boolean isSolid = scanner.nextBoolean();
             scanner.nextLine();
@@ -67,7 +64,7 @@ public class TileMap implements GameObject {
             }
 
             zoomLevels.add(1.0);
-        } catch (FileNotFoundException e) {e.printStackTrace();}
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public void fillTileMap(String flipBookName) {

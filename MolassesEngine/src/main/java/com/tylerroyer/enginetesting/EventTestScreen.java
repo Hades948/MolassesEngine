@@ -22,7 +22,7 @@ class EventTestScreen extends Screen {
     public void onFocus() {
         Font font = new Font("Helvetica", Font.PLAIN, 12);
         
-        MutableBoolean toggleEnabled = new MutableBoolean(false);
+        MutableBoolean toggleEnabled = new MutableBoolean(true);
         Event toggleEvent = new ToggleEvent(state);
         toggleEvent.addCondition(toggleEnabled);
         toggleButton = new Button("Toggle", font, new Color(128, 0, 0), Color.WHITE, 75, 50, 20, 20, toggleEvent);

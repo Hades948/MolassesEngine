@@ -2,9 +2,6 @@ package com.tylerroyer.molasses;
 
 import com.tylerroyer.molasses.events.Event;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,13 +30,13 @@ public class FlipBook {
 
     public FlipBook(String flipBookFileName) {
         this.pages = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new FileInputStream(new File(Config.projectResourcePath + flipBookFileName)))) {
+        try (Scanner scanner = new Scanner(FlipBook.class.getResourceAsStream("/res/" + flipBookFileName))) {
             flipDelay = Long.parseLong(scanner.nextLine());
             flipBookType = FlipBookType.valueOf(scanner.nextLine().toUpperCase());
             while (scanner.hasNextLine()) {
                 pages.add(new Page(scanner.nextLine()));
             }
-        } catch (FileNotFoundException e) {e.printStackTrace();}
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public FlipBook(long flipDelay, Page... pages) {
